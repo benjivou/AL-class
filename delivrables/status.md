@@ -1,4 +1,4 @@
-# Weekly  Rapport
+# Weekly  Report
 ## Week 1
 **Done :**
  - Main scope version 1
