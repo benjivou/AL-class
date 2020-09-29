@@ -10,3 +10,5 @@
  **Next week tasks planned :**
  - Logiciel architecture
  - Infrastructure architecture
+ 
+ #### Flag : We did all the tasks that we planned to do so our flag this week is Green
