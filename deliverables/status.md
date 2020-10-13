@@ -2,13 +2,13 @@
 
 ## Week 42
 **Done :**
- - We a Android/Java project about a scan QR app : https://www.journaldev.com/18198/qr-code-barcode-scanner-android
- - We discussed the choices of technos that we will use with justification.
- - we modified the roadmap with new changes.
- - we started the setting up of the project squellet.
- 
- **Waiting for :**
- -  
+ - We discussed the different technologies that we can use for every part of the project .
+ - We added the explanation and the reasons of every choice we made for both project architecture and project technologies to architecture.pdf. 
+ - We modified the roadmap to make it more technical oriented.
+ - We started the set up of the project : 
+     * Front-end : We started the implementation of the android project. 
+     * Back-end : We started creating Control Ticket API , Ticket's infos API and Train's infos API. 
+
  **Next week tasks planned :**
  - adding the scanQR project in our Android/Kotlin project
  - start services development
