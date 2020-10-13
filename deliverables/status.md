@@ -1,14 +1,17 @@
 # Weekly  Report
 
-## Week 41
+## Week 42
 **Done :**
- - Git create for the Android App : https://github.com/benjivou/AL-class-Android-Controller
  - We a Android/Java project about a scan QR app : https://www.journaldev.com/18198/qr-code-barcode-scanner-android
+ - We discussed the choices of technos that we will use with justification.
+ - we modified the roadmap with new changes.
+ - we started the setting up of the project squellet.
  
  **Waiting for :**
-
+ -  
  **Next week tasks planned :**
  - adding the scanQR project in our Android/Kotlin project
+ - start services development
  
  #### Flag : 
 
