@@ -6,14 +6,16 @@
  - We added the explanation and the reasons of every choice we made for both project architecture and project technologies to architecture.pdf. 
  - We modified the roadmap to make it more technical oriented.
  - We started the set up of the project : 
-     * Front-end : We started the implementation of the android project. 
-     * Back-end : We started creating Control Ticket API , Ticket's infos API and Train's infos API. 
+     * Client-UI : We started the implementation of the android project. 
+     * Services : We started creating Control Ticket API , Ticket's infos API and Train's infos API. 
 
- **Next week tasks planned :**
- - adding the scanQR project in our Android/Kotlin project
- - start services development
+ **Future tasks planned :**
+ - Continue implementing the scan QR functionality in our Android/Kotlin project
+ - Start services implementation
+ - Link MangoDB with our components
  
- #### Flag : 
+ 
+ #### Flag : <img alt="green" src="https://upload.wikimedia.org/wikipedia/commons/d/de/Color-Green.JPG" width="25" height="15"/>
 
 ## Week 41
 **Done :**
