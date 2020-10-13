@@ -12,7 +12,7 @@
  **Future tasks planned :**
  - Continue implementing the scan QR functionality in our Android/Kotlin project
  - Start services implementation
- - Link MangoDB with our components
+ - Link MangoDB to our components
  
  
  #### Flag : <img alt="green" src="https://upload.wikimedia.org/wikipedia/commons/d/de/Color-Green.JPG" width="25" height="15"/>
