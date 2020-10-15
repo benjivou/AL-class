@@ -4,7 +4,6 @@ const app = express();
 const morgan = require('morgan');
 app.use(cors());
 const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
 require('dotenv/config');
 
 
@@ -22,15 +21,6 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(morgan('short'));
 
 
-
-mongoose.connect('mongodb+srv://user:al123@cluster0.dsrqm.gcp.mongodb.net/<dbname>?retryWrites=true&w=majority',
-    {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-        useCreateIndex: true,
-        useFindAndModify: false
-    }).then(()=>{
-    console.log(`connection to database established`)});
 
 const ticketCheckService_router = require('./app/api/index.js');
 
