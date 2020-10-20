@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homePage">
+
+    <fragment
+        android:id="@+id/homePage"
+        android:name="com.example.myapplication.HomePage"
+        android:label="fragment_home_page"
+        tools:layout="@layout/home_fragment" >
+        <action
+            android:id="@+id/action_homePage_to_scanQr"
+            app:destination="@id/scanQr" />
+    </fragment>
+    <fragment
+        android:id="@+id/scanQr"
+        android:name="com.example.myapplication.ScanQr"
+        android:label="scan_qr_fragment"
+        tools:layout="@layout/scan_qr_fragment" >
+        <action
+            android:id="@+id/action_scanQr_to_scannedBarcodeActivity2"
+            app:destination="@id/scannedBarcodeActivity2" />
+    </fragment>
+    <fragment
+        android:id="@+id/scannedBarcodeActivity2"
+        android:name="com.example.myapplication.ScannedBarcodeActivity"
+        android:label="ScannedBarcodeActivity" />
+</navigation>
