@@ -10,14 +10,8 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.get("/:id", async (req, res) => {
-
         const ticketCheck = await verifyTicket(req.params.id);
-        if(ticketCheck){
-            await res.json(true);
-        }else {
-            await res.json(false);
-        }
-
+        await res.json(ticketCheck);
 });
 
 app.get("/ticket/:id", async (req, res) => {
@@ -77,7 +71,8 @@ async function verifyTicket(id){
         resultat = false;
     }
 
-    return resultat ;
+
+    return {"resultat" : resultat, "type" : ticket.type };
 
 }
 
