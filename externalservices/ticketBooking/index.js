@@ -35,10 +35,7 @@ mongoose.connect(process.env.DB_CONNECTION,
 
 const ticketBookingInfosService_router = require('./app/api/index.js');
 
-app.use('/ticket',ticketBookingInfosService_router);
-
-
-
+app.use('/',ticketBookingInfosService_router);
 
 
 // localhost:3003
