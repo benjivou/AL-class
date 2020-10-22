@@ -3,4 +3,8 @@
     <string name="home_fragment">Home fragment</string>
     <string name="QR_fragment">QR fragment</string>
     <string name="lancer_un_scan">lancer un scan</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="request_ticket">Veuillez entrer le numéro de ticket :</string>
+    <string name="ticket_number">Numero de ticket</string>
 </resources>

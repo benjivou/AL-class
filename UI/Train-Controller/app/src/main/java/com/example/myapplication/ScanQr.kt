@@ -5,12 +5,14 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
-import android.view.*
-import android.widget.Button
-import android.widget.TextView
+import android.view.LayoutInflater
+import android.view.SurfaceHolder
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import com.google.android.gms.vision.CameraSource
 import com.google.android.gms.vision.Detector
 import com.google.android.gms.vision.Detector.Detections
@@ -38,9 +40,7 @@ internal class ScanQr : Fragment() {
     private fun initViews() {
         initialiseDetectorsAndSources()
         btnAction.setOnClickListener {
-            if (intentData.isNotEmpty()) {
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(intentData)))
-            }
+            requireView().findNavController().navigate(ScanQrDirections.actionScanQrToTicketInputFragment())
         }
     }
 
@@ -85,7 +85,7 @@ internal class ScanQr : Fragment() {
             }
 
             override fun surfaceDestroyed(holder: SurfaceHolder) {
-                cameraSource!!.stop()
+                cameraSource.stop()
             }
         })
         barcodeDetector!!.setProcessor(object : Detector.Processor<Barcode> {
@@ -101,21 +101,14 @@ internal class ScanQr : Fragment() {
                 val barcodes = detections.detectedItems
                 if (barcodes.size() != 0) {
                     txtBarcodeValue!!.post {
-                        if (barcodes.valueAt(0).email != null) {
-                            txtBarcodeValue!!.removeCallbacks(null)
-                            intentData = barcodes.valueAt(0).email.address
-                            txtBarcodeValue!!.text = intentData
-                            isEmail = true
-                            btnAction!!.text = "ADD CONTENT TO THE MAIL"
-                        } else {
-                            isEmail = false
-                            btnAction!!.text = "LAUNCH URL"
-                            intentData = barcodes.valueAt(0).displayValue
-                            txtBarcodeValue!!.text = intentData
-                        }
+                        intentData = barcodes.valueAt(0).displayValue
+                        txtBarcodeValue!!.text = intentData
+
+                        requireView().findNavController().navigate(ScanQrDirections.actionScanQrToTicketAnalyserFragment())
                     }
                 }
             }
+
         })
     }
 

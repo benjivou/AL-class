@@ -18,5 +18,35 @@
         android:id="@+id/scanQr"
         android:name="com.example.myapplication.ScanQr"
         android:label="scan_qr_fragment"
-        tools:layout="@layout/scan_qr_fragment" />
+        tools:layout="@layout/scan_qr_fragment" >
+        <action
+            android:id="@+id/action_scanQr_to_ticketInputFragment"
+            app:destination="@id/ticketInputFragment" />
+        <action
+            android:id="@+id/action_scanQr_to_ticketAnalyserFragment"
+            app:destination="@id/ticketAnalyserFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/ticketInputFragment"
+        android:name="com.example.myapplication.TicketInputFragment"
+        android:label="fragment_ticket_input"
+        tools:layout="@layout/fragment_ticket_input" >
+        <action
+            android:id="@+id/action_ticketInputFragment_to_ticketAnalyserFragment"
+            app:destination="@id/ticketAnalyserFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/ticketAnalyserFragment"
+        android:name="com.example.myapplication.TicketAnalyserFragment"
+        android:label="fragment_ticket_analyser"
+        tools:layout="@layout/fragment_ticket_analyser" >
+        <action
+            android:id="@+id/action_ticketAnalyserFragment_to_fraud"
+            app:destination="@id/fraud" />
+    </fragment>
+    <fragment
+        android:id="@+id/fraud"
+        android:name="com.example.myapplication.Fraud"
+        android:label="fragment_fraud"
+        tools:layout="@layout/fragment_fraud" />
 </navigation>
