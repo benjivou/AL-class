@@ -18,13 +18,5 @@
         android:id="@+id/scanQr"
         android:name="com.example.myapplication.ScanQr"
         android:label="scan_qr_fragment"
-        tools:layout="@layout/scan_qr_fragment" >
-        <action
-            android:id="@+id/action_scanQr_to_scannedBarcodeActivity2"
-            app:destination="@id/scannedBarcodeActivity2" />
-    </fragment>
-    <fragment
-        android:id="@+id/scannedBarcodeActivity2"
-        android:name="com.example.myapplication.ScannedBarcodeActivity"
-        android:label="ScannedBarcodeActivity" />
+        tools:layout="@layout/scan_qr_fragment" />
 </navigation>
