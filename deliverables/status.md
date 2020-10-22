@@ -1,5 +1,15 @@
 # Weekly  Report
 
+## Week 43
+**Done :**
+- Add architecture details and justification (which component is used + flow)
+- We discuss where services should be located physically
+- We are implementing tests, integration CI and try to connect our services to have a minimal connection bewteen them, and linking MongoDB
+
+ **Future tasks planned :**
+ - Focus on the "work" implementation inside services
+ - Make the app usable with simple UI and simple scenario
+
 ## Week 42
 **Done :**
  - We discussed the different technologies that we can use for every part of the project .

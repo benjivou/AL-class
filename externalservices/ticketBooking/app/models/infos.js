@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 
+
 const TicketInfoSchema = mongoose.Schema({
     _id:{
         type : String,
@@ -12,11 +13,27 @@ const TicketInfoSchema = mongoose.Schema({
     },
     type : {
         type: String ,
-        require : true
+        required : true
     },
     trainRef : {
         type : String,
-        require: true
+        required : true
+    },
+    departure : {
+        type : String, 
+        required : true
+    },
+    destination:{
+        type : String,
+        required : true
+    },
+    price : {
+        type : Number,
+        required : true
+    },
+    date : {
+        type : String,
+        required : true
     }
 
 });

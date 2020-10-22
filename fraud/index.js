@@ -6,6 +6,7 @@ app.use(cors());
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 require('dotenv/config');
+const fraud_router_service = require('./app/api/index');
 
 
 
@@ -17,8 +18,8 @@ app.use((req, res, next) => {
     next()
 });
 
-
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 
 app.use(morgan('short'));
 
@@ -33,12 +34,10 @@ mongoose.connect(process.env.DB_CONNECTION,
     }).then(()=>{
     console.log(`connection to database established`)});
 
-const ticketBookingInfosService_router = require('./app/api/index.js');
 
-app.use('/',ticketBookingInfosService_router);
+app.use('/',fraud_router_service);
 
-
-// localhost:3003
-app.listen(3004, () => {
-    console.log(" Ticket booking service is up and listening on 3004...")
+// localhost:3006
+app.listen(3006, () => {
+    console.log(" Fraud component is up and listening on 3006...")
 });

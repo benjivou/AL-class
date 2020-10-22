@@ -33,12 +33,12 @@ mongoose.connect(process.env.DB_CONNECTION,
     }).then(()=>{
     console.log(`connection to database established`)});
 
-const ticketBookingInfosService_router = require('./app/api/index.js');
+const trainInfoService_router = require('./app/api/index.js');
 
-app.use('/',ticketBookingInfosService_router);
+app.use('/train',trainInfoService_router );
 
 
-// localhost:3003
-app.listen(3004, () => {
-    console.log(" Ticket booking service is up and listening on 3004...")
+// localhost:3005
+app.listen(3005, () => {
+    console.log(" Train telemetry is up and listening on 3005...")
 });
