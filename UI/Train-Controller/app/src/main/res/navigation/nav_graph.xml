@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/homePage">
+    app:startDestination="@id/loginFragment">
 
     <fragment
         android:id="@+id/homePage"
@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_homePage_to_scanQr"
             app:destination="@id/scanQr" />
+        <action
+            android:id="@+id/action_homePage_to_fraud"
+            app:destination="@id/fraud" />
     </fragment>
     <fragment
         android:id="@+id/scanQr"
@@ -25,6 +28,7 @@
         <action
             android:id="@+id/action_scanQr_to_ticketAnalyserFragment"
             app:destination="@id/ticketAnalyserFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/ticketInputFragment"
@@ -40,13 +44,28 @@
         android:name="com.example.myapplication.TicketAnalyserFragment"
         android:label="fragment_ticket_analyser"
         tools:layout="@layout/fragment_ticket_analyser" >
+        <argument
+            android:name="ticketNumber"
+            app:argType="string" />
         <action
             android:id="@+id/action_ticketAnalyserFragment_to_fraud"
             app:destination="@id/fraud" />
+        <action
+            android:id="@+id/action_ticketAnalyserFragment_to_homePage"
+            app:destination="@id/homePage" />
     </fragment>
     <fragment
         android:id="@+id/fraud"
         android:name="com.example.myapplication.Fraud"
         android:label="fragment_fraud"
         tools:layout="@layout/fragment_fraud" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.myapplication.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_homePage"
+            app:destination="@id/homePage" />
+    </fragment>
 </navigation>

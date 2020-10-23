@@ -1,9 +1,7 @@
 package com.example.myapplication
 
 import android.Manifest
-import android.content.Intent
 import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.SurfaceHolder
@@ -26,8 +24,7 @@ internal class ScanQr : Fragment() {
     private var barcodeDetector: BarcodeDetector? = null
     lateinit var cameraSource: CameraSource
 
-    var intentData = ""
-    var isEmail = false
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -101,10 +98,10 @@ internal class ScanQr : Fragment() {
                 val barcodes = detections.detectedItems
                 if (barcodes.size() != 0) {
                     txtBarcodeValue!!.post {
-                        intentData = barcodes.valueAt(0).displayValue
-                        txtBarcodeValue!!.text = intentData
+                        val intentData = barcodes.valueAt(0).displayValue
+                       // txtBarcodeValue!!.text = intentData
 
-                        requireView().findNavController().navigate(ScanQrDirections.actionScanQrToTicketAnalyserFragment())
+                        requireView().findNavController().navigate(ScanQrDirections.actionScanQrToTicketAnalyserFragment(intentData))
                     }
                 }
             }
@@ -119,7 +116,7 @@ internal class ScanQr : Fragment() {
 
     override fun onPause() {
         super.onPause()
-        cameraSource!!.release()
+        cameraSource.release()
     }
 
     companion object {
