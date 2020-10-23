@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.example.myapplication.ui.fragment
 
 import android.Manifest
 import android.content.pm.PackageManager
@@ -11,6 +11,8 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import com.example.myapplication.R
+import com.example.myapplication.ScanQrDirections
 import com.google.android.gms.vision.CameraSource
 import com.google.android.gms.vision.Detector
 import com.google.android.gms.vision.Detector.Detections
@@ -101,7 +103,11 @@ internal class ScanQr : Fragment() {
                         val intentData = barcodes.valueAt(0).displayValue
                        // txtBarcodeValue!!.text = intentData
 
-                        requireView().findNavController().navigate(ScanQrDirections.actionScanQrToTicketAnalyserFragment(intentData))
+                        requireView().findNavController().navigate(
+                            ScanQrDirections.actionScanQrToTicketAnalyserFragment(
+                                intentData
+                            )
+                        )
                     }
                 }
             }

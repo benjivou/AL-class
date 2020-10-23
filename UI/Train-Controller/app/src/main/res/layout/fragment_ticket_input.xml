@@ -5,7 +5,7 @@
     android:id="@+id/fragment_ticket_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TicketInputFragment">
+    tools:context=".ui.fragment.TicketInputFragment">
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"

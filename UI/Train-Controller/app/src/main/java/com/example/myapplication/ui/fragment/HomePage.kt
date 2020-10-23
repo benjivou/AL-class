@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.example.myapplication.ui.fragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,8 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
+import com.example.myapplication.HomePageDirections
 import com.example.myapplication.databinding.HomeFragmentBinding
-import com.example.myapplication.databinding.ScanQrFragmentBinding
 import kotlinx.android.synthetic.main.home_fragment.*
 
 

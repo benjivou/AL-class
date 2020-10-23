@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homePage"
-        android:name="com.example.myapplication.HomePage"
+        android:name="com.example.myapplication.ui.fragment.HomePage"
         android:label="fragment_home_page"
         tools:layout="@layout/home_fragment" >
         <action
@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/scanQr"
-        android:name="com.example.myapplication.ScanQr"
+        android:name="com.example.myapplication.ui.fragment.ScanQr"
         android:label="scan_qr_fragment"
         tools:layout="@layout/scan_qr_fragment" >
         <action
@@ -32,7 +32,7 @@
     </fragment>
     <fragment
         android:id="@+id/ticketInputFragment"
-        android:name="com.example.myapplication.TicketInputFragment"
+        android:name="com.example.myapplication.ui.fragment.TicketInputFragment"
         android:label="fragment_ticket_input"
         tools:layout="@layout/fragment_ticket_input" >
         <action
@@ -41,7 +41,7 @@
     </fragment>
     <fragment
         android:id="@+id/ticketAnalyserFragment"
-        android:name="com.example.myapplication.TicketAnalyserFragment"
+        android:name="com.example.myapplication.ui.fragment.TicketAnalyserFragment"
         android:label="fragment_ticket_analyser"
         tools:layout="@layout/fragment_ticket_analyser" >
         <argument
@@ -56,12 +56,12 @@
     </fragment>
     <fragment
         android:id="@+id/fraud"
-        android:name="com.example.myapplication.Fraud"
+        android:name="com.example.myapplication.ui.fragment.Fraud"
         android:label="fragment_fraud"
         tools:layout="@layout/fragment_fraud" />
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.myapplication.LoginFragment"
+        android:name="com.example.myapplication.ui.fragment.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
