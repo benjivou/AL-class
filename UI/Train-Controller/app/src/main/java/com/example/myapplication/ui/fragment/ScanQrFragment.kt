@@ -102,13 +102,10 @@ class ScanQrFragment : Fragment() {
             override fun receiveDetections(detections: Detections<Barcode>) {
                 val barcodes = detections.detectedItems
                 if (barcodes.size() != 0) {
-                    txtBarcodeValue!!.post {
-                        val intentData = barcodes.valueAt(0).displayValue
+                    val intentData = barcodes.valueAt(0).displayValue
 
-                       // txtBarcodeValue!!.text = intentData
-                        goToNext(intentData)
-
-                    }
+                    // txtBarcodeValue!!.text = intentData
+                    goToNext(intentData)
                 }
             }
 
@@ -128,7 +125,6 @@ class ScanQrFragment : Fragment() {
     fun goToNext(str : String){
         Log.d(TAG, "goToNext: ")
         findNavController().navigate(ScanQrFragmentDirections.actionScanQrToTicketAnalyserFragment(str))
-
     }
 
     companion object {
