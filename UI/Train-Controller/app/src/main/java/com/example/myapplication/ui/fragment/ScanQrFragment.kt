@@ -3,6 +3,7 @@ package com.example.myapplication.ui.fragment
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.SurfaceHolder
 import android.view.View
@@ -10,9 +11,12 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.navigateUp
 import com.example.myapplication.R
-import com.example.myapplication.ScanQrDirections
 import com.google.android.gms.vision.CameraSource
 import com.google.android.gms.vision.Detector
 import com.google.android.gms.vision.Detector.Detections
@@ -21,11 +25,11 @@ import com.google.android.gms.vision.barcode.BarcodeDetector
 import kotlinx.android.synthetic.main.scan_qr_fragment.*
 import java.io.IOException
 
-internal class ScanQr : Fragment() {
+private const val TAG = "ScanQr"
+class ScanQrFragment : Fragment() {
 
     private var barcodeDetector: BarcodeDetector? = null
     lateinit var cameraSource: CameraSource
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,7 +43,7 @@ internal class ScanQr : Fragment() {
     private fun initViews() {
         initialiseDetectorsAndSources()
         btnAction.setOnClickListener {
-            requireView().findNavController().navigate(ScanQrDirections.actionScanQrToTicketInputFragment())
+            requireView().findNavController().navigate(ScanQrFragmentDirections.actionScanQrToTicketInputFragment())
         }
     }
 
@@ -52,7 +56,6 @@ internal class ScanQr : Fragment() {
             .setRequestedPreviewSize(1920, 1080)
             .setAutoFocusEnabled(true) //you should add this feature
             .build()
-
         // ICi c'est la gestion de la view
         surfaceView.holder.addCallback(object : SurfaceHolder.Callback {
             override fun surfaceCreated(holder: SurfaceHolder) {
@@ -101,13 +104,10 @@ internal class ScanQr : Fragment() {
                 if (barcodes.size() != 0) {
                     txtBarcodeValue!!.post {
                         val intentData = barcodes.valueAt(0).displayValue
-                       // txtBarcodeValue!!.text = intentData
 
-                        requireView().findNavController().navigate(
-                            ScanQrDirections.actionScanQrToTicketAnalyserFragment(
-                                intentData
-                            )
-                        )
+                       // txtBarcodeValue!!.text = intentData
+                        goToNext(intentData)
+
                     }
                 }
             }
@@ -123,6 +123,12 @@ internal class ScanQr : Fragment() {
     override fun onPause() {
         super.onPause()
         cameraSource.release()
+    }
+
+    fun goToNext(str : String){
+        Log.d(TAG, "goToNext: ")
+        findNavController().navigate(ScanQrFragmentDirections.actionScanQrToTicketAnalyserFragment(str))
+
     }
 
     companion object {

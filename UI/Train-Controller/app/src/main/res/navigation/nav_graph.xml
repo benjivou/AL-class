@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/scanQr"
-        android:name="com.example.myapplication.ui.fragment.ScanQr"
+        android:name="com.example.myapplication.ui.fragment.ScanQrFragment"
         android:label="scan_qr_fragment"
         tools:layout="@layout/scan_qr_fragment" >
         <action

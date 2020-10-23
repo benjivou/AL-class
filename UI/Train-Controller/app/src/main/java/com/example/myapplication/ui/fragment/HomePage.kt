@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
-import com.example.myapplication.HomePageDirections
 import com.example.myapplication.databinding.HomeFragmentBinding
 import kotlinx.android.synthetic.main.home_fragment.*
 
@@ -17,7 +16,6 @@ import kotlinx.android.synthetic.main.home_fragment.*
  * create an instance of this fragment.
  */
 class HomePage : Fragment() {
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

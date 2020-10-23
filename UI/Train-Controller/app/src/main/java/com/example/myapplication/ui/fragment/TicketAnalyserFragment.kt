@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
-import com.example.myapplication.TicketAnalyserFragmentArgs
 import com.example.myapplication.databinding.FragmentTicketAnalyserBinding
 
 /**
@@ -29,7 +28,6 @@ class TicketAnalyserFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentTicketAnalyserBinding.bind(view)
         binding!!.resultTxt.text = args.ticketNumber
-
     }
 
 
