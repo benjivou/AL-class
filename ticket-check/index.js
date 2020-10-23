@@ -8,6 +8,7 @@ app.use(cors());
 const bodyParser = require('body-parser');
 require('dotenv/config');
 const mem = require('./app/models/internal-mem');
+let id ;
 
 
 
@@ -64,10 +65,12 @@ async function saveData() {
     const data = new mem({
         trainId : trainId,
         tickets : tickets,
-        trainStops : stops
+        trainStops : stops,
+        currentStop : stops[0]
     });
     try{
         const saved = await data.save();
+        id = saved._id ;
         console.log(saved);
     }catch(err) {
         console.log(err);
@@ -75,6 +78,7 @@ async function saveData() {
 
 
 }
+
 
 
 
@@ -86,6 +90,10 @@ app.get('/start', ()=>{
     saveData().then(r => console.log());
 });
 
+app.get('/currentStop', async (req, res) =>{
+    let infos = mem.find();
+    res.status(200).json(infos.currentStop);
+});
 
 // localhost:3003
 app.listen(3003, () => {
