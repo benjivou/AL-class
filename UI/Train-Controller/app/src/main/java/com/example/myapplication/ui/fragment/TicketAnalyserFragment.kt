@@ -4,13 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
-import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentTicketAnalyserBinding
-import kotlinx.android.synthetic.main.fragment_ticket_input.*
 
 /**
  * A simple [Fragment] subclass.
@@ -25,7 +21,7 @@ class TicketAnalyserFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? = FragmentTicketAnalyserBinding.inflate(inflater,container,false).root
+    ): View? = FragmentTicketAnalyserBinding.inflate(inflater, container, false).root
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

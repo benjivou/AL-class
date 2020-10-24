@@ -35,13 +35,13 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginBottom="8dp"
+        android:contentDescription="TODO"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/validBtn"
         app:layout_constraintTop_toTopOf="@+id/validBtn"
-        app:srcCompat="@drawable/ic_baseline_clear_24"
-        android:contentDescription="TODO" />
+        app:srcCompat="@drawable/ic_baseline_clear_24" />
 
     <androidx.constraintlayout.widget.Group
         android:id="@+id/group2"
