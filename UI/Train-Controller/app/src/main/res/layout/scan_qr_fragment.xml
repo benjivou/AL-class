@@ -4,14 +4,13 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:padding="@dimen/activity_horizontal_margin"
-    tools:context=".ui.fragment.ScanQrFragment">>
+    tools:context=".ui.fragment.ScanQrFragment">
 
     <SurfaceView
         android:id="@+id/surfaceView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/btnAction"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true" />
 
@@ -20,9 +19,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:text="No Barcode Detected"
+        android:text="@string/no_barcode_detected"
         android:textColor="@android:color/white"
         android:textSize="20sp" />
 
@@ -32,6 +30,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:text="Entrée manuel de billet" />
+        android:text="@string/goToTicketInput" />
 
 </RelativeLayout>

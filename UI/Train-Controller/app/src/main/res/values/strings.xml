@@ -1,10 +1,14 @@
 <resources>
     <string name="app_name">Control Ticket App</string>
-    <string name="home_fragment">Home fragment</string>
+    <string name="home_fragment">Votre page d\'accueil</string>
     <string name="QR_fragment">QR fragment</string>
     <string name="lancer_un_scan">lancer un scan</string>
-    <!-- TODO: Remove or change this placeholder text -->
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="request_ticket">Veuillez entrer le numéro de ticket :</string>
     <string name="ticket_number">Numero de ticket</string>
+    <string name="loading_message">Votre billet est en cours de traitement</string>
+    <string name="no_barcode_detected">No Barcode Detected</string>
+    <string name="goToTicketInput">Entrée manuel de billet</string>
+    <string name="titre_de_la_verification">Titre de la verification</string>
 </resources>

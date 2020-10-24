@@ -14,8 +14,8 @@
             android:id="@+id/action_homePage_to_scanQr"
             app:destination="@id/scanQr" />
         <action
-            android:id="@+id/action_homePage_to_fraud"
-            app:destination="@id/fraud" />
+            android:id="@+id/action_homePage_to_manuallFraudFormulaire"
+            app:destination="@id/manuallFraudFormulaire" />
     </fragment>
     <fragment
         android:id="@+id/scanQr"
@@ -53,12 +53,25 @@
         <action
             android:id="@+id/action_ticketAnalyserFragment_to_homePage"
             app:destination="@id/homePage" />
+        <action
+            android:id="@+id/action_ticketAnalyserFragment_to_optionalTestFragment"
+            app:destination="@id/optionalTestFragment" />
     </fragment>
     <fragment
         android:id="@+id/fraud"
         android:name="com.example.myapplication.ui.fragment.Fraud"
         android:label="fragment_fraud"
-        tools:layout="@layout/fragment_fraud" />
+        tools:layout="@layout/fragment_fraud" >
+        <action
+            android:id="@+id/action_fraud_to_cardPaiement"
+            app:destination="@id/cardPaiement" />
+        <action
+            android:id="@+id/action_fraud_to_cashPaiement"
+            app:destination="@id/cashPaiement" />
+        <action
+            android:id="@+id/action_fraud_to_futurePaiement"
+            app:destination="@id/futurePaiement" />
+    </fragment>
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.myapplication.ui.fragment.LoginFragment"
@@ -67,5 +80,59 @@
         <action
             android:id="@+id/action_loginFragment_to_homePage"
             app:destination="@id/homePage" />
+    </fragment>
+    <fragment
+        android:id="@+id/cardPaiement"
+        android:name="com.example.myapplication.ui.fragment.CardPaiement"
+        android:label="fragment_card_paiement"
+        tools:layout="@layout/fragment_card_paiement" >
+        <action
+            android:id="@+id/action_cardPaiement_to_fraudCheckingScreen"
+            app:destination="@id/fraudCheckingScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/cashPaiement"
+        android:name="com.example.myapplication.ui.fragment.CashPaiement"
+        android:label="fragment_cash_paiement"
+        tools:layout="@layout/fragment_cash_paiement" >
+        <action
+            android:id="@+id/action_cashPaiement_to_fraudCheckingScreen"
+            app:destination="@id/fraudCheckingScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/futurePaiement"
+        android:name="com.example.myapplication.ui.fragment.FuturePaiement"
+        android:label="fragment_future_paiement"
+        tools:layout="@layout/fragment_future_paiement" >
+        <action
+            android:id="@+id/action_futurePaiement_to_fraudCheckingScreen"
+            app:destination="@id/fraudCheckingScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/manuallFraudFormulaire"
+        android:name="com.example.myapplication.ui.fragment.ManuallFraudFormulaire"
+        android:label="fragment_manuall_fraud_formulaire"
+        tools:layout="@layout/fragment_manuall_fraud_formulaire" >
+        <action
+            android:id="@+id/action_manuallFraudFormulaire_to_fraud"
+            app:destination="@id/fraud" />
+    </fragment>
+    <fragment
+        android:id="@+id/fraudCheckingScreen"
+        android:name="com.example.myapplication.ui.fragment.FraudCheckingScreen"
+        android:label="fragment_fraud_checking_screen"
+        tools:layout="@layout/fragment_fraud_checking_screen" >
+        <action
+            android:id="@+id/action_fraudCheckingScreen_to_homePage"
+            app:destination="@id/homePage" />
+    </fragment>
+    <fragment
+        android:id="@+id/optionalTestFragment"
+        android:name="com.example.myapplication.ui.fragment.OptionalTestFragment"
+        android:label="fragment_optional_test"
+        tools:layout="@layout/fragment_optional_test" >
+        <action
+            android:id="@+id/action_optionalTestFragment_to_ticketAnalyserFragment"
+            app:destination="@id/ticketAnalyserFragment" />
     </fragment>
 </navigation>
