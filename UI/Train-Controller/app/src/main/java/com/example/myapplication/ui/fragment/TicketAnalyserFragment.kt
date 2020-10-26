@@ -21,7 +21,7 @@ class TicketAnalyserFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? = FragmentTicketAnalyserBinding.inflate(inflater,container,false).root
+    ): View? = FragmentTicketAnalyserBinding.inflate(inflater, container, false).root
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

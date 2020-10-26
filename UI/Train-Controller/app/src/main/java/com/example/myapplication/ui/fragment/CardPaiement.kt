@@ -7,14 +7,15 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.myapplication.R
 
-private const val TAG = "Fraud"
-
 /**
  * A simple [Fragment] subclass.
- * Use the [Fraud.newInstance] factory method to
+ * Use the [CardPaiement.newInstance] factory method to
  * create an instance of this fragment.
  */
-class Fraud : Fragment() {
+class CardPaiement : Fragment() {
+    // TODO: Rename and change types of parameters
+    private var param1: String? = null
+    private var param2: String? = null
 
 
     override fun onCreateView(
@@ -22,8 +23,7 @@ class Fraud : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_fraud, container, false)
+        return inflater.inflate(R.layout.fragment_card_paiement, container, false)
     }
-
 
 }

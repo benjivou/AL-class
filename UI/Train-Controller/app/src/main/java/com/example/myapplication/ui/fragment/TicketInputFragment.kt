@@ -1,26 +1,26 @@
 package com.example.myapplication.ui.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.myapplication.R
+import com.example.myapplication.data.restCalls
+import com.example.myapplication.databinding.FragmentTicketInputBinding
 import kotlinx.android.synthetic.main.fragment_ticket_input.*
-import kotlinx.android.synthetic.main.scan_qr_fragment.*
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
  * Use the [TicketInputFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
+private const val TAG = "TicketInputFragment"
+
 class TicketInputFragment : Fragment() {
+    private var binding: FragmentTicketInputBinding? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,7 +32,19 @@ class TicketInputFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        validTicketBtn.setOnClickListener {
-            findNavController().navigate(TicketInputFragmentDirections.actionTicketInputFragmentToTicketAnalyserFragment(editTextNumber.text.toString())) }
+        binding = FragmentTicketInputBinding.bind(view)
+        binding!!.validTicketBtn?.setOnClickListener {
+            val ticketId = binding!!.editTextNumber.text
+            if (!ticketId.isNullOrEmpty()) {
+                Log.d(TAG, "onViewCreated: $ticketId")
+                restCalls.getTicketInfos(ticketId.toString())
+            }
+            findNavController().navigate(
+                TicketInputFragmentDirections.actionTicketInputFragmentToTicketAnalyserFragment(
+                    editTextNumber.text.toString()
+                )
+            )
+        }
     }
+
 }

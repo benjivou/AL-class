@@ -11,11 +11,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.navigateUp
 import com.example.myapplication.R
 import com.google.android.gms.vision.CameraSource
 import com.google.android.gms.vision.Detector
@@ -26,6 +23,7 @@ import kotlinx.android.synthetic.main.scan_qr_fragment.*
 import java.io.IOException
 
 private const val TAG = "ScanQr"
+
 class ScanQrFragment : Fragment() {
 
     private var barcodeDetector: BarcodeDetector? = null
@@ -43,7 +41,8 @@ class ScanQrFragment : Fragment() {
     private fun initViews() {
         initialiseDetectorsAndSources()
         btnAction.setOnClickListener {
-            requireView().findNavController().navigate(ScanQrFragmentDirections.actionScanQrToTicketInputFragment())
+            requireView().findNavController()
+                .navigate(ScanQrFragmentDirections.actionScanQrToTicketInputFragment())
         }
     }
 
@@ -102,13 +101,10 @@ class ScanQrFragment : Fragment() {
             override fun receiveDetections(detections: Detections<Barcode>) {
                 val barcodes = detections.detectedItems
                 if (barcodes.size() != 0) {
-                    txtBarcodeValue!!.post {
-                        val intentData = barcodes.valueAt(0).displayValue
+                    val intentData = barcodes.valueAt(0).displayValue
 
-                       // txtBarcodeValue!!.text = intentData
-                        goToNext(intentData)
-
-                    }
+                    // txtBarcodeValue!!.text = intentData
+                    goToNext(intentData)
                 }
             }
 
@@ -125,10 +121,13 @@ class ScanQrFragment : Fragment() {
         cameraSource.release()
     }
 
-    fun goToNext(str : String){
+    fun goToNext(str: String) {
         Log.d(TAG, "goToNext: ")
-        findNavController().navigate(ScanQrFragmentDirections.actionScanQrToTicketAnalyserFragment(str))
-
+        findNavController().navigate(
+            ScanQrFragmentDirections.actionScanQrToTicketAnalyserFragment(
+                str
+            )
+        )
     }
 
     companion object {

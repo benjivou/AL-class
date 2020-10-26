@@ -9,19 +9,19 @@
         android:id="@+id/homePage"
         android:name="com.example.myapplication.ui.fragment.HomePage"
         android:label="fragment_home_page"
-        tools:layout="@layout/home_fragment" >
+        tools:layout="@layout/home_fragment">
         <action
             android:id="@+id/action_homePage_to_scanQr"
             app:destination="@id/scanQr" />
         <action
-            android:id="@+id/action_homePage_to_fraud"
-            app:destination="@id/fraud" />
+            android:id="@+id/action_homePage_to_manuallFraudFormulaire"
+            app:destination="@id/manuallFraudFormulaire" />
     </fragment>
     <fragment
         android:id="@+id/scanQr"
         android:name="com.example.myapplication.ui.fragment.ScanQrFragment"
         android:label="scan_qr_fragment"
-        tools:layout="@layout/scan_qr_fragment" >
+        tools:layout="@layout/scan_qr_fragment">
         <action
             android:id="@+id/action_scanQr_to_ticketInputFragment"
             app:destination="@id/ticketInputFragment" />
@@ -34,7 +34,7 @@
         android:id="@+id/ticketInputFragment"
         android:name="com.example.myapplication.ui.fragment.TicketInputFragment"
         android:label="fragment_ticket_input"
-        tools:layout="@layout/fragment_ticket_input" >
+        tools:layout="@layout/fragment_ticket_input">
         <action
             android:id="@+id/action_ticketInputFragment_to_ticketAnalyserFragment"
             app:destination="@id/ticketAnalyserFragment" />
@@ -43,7 +43,7 @@
         android:id="@+id/ticketAnalyserFragment"
         android:name="com.example.myapplication.ui.fragment.TicketAnalyserFragment"
         android:label="fragment_ticket_analyser"
-        tools:layout="@layout/fragment_ticket_analyser" >
+        tools:layout="@layout/fragment_ticket_analyser">
         <argument
             android:name="ticketNumber"
             app:argType="string" />
@@ -51,21 +51,85 @@
             android:id="@+id/action_ticketAnalyserFragment_to_fraud"
             app:destination="@id/fraud" />
         <action
-            android:id="@+id/action_ticketAnalyserFragment_to_homePage"
-            app:destination="@id/homePage" />
+            android:id="@+id/action_ticketAnalyserFragment_to_optionalTestFragment"
+            app:destination="@id/optionalTestFragment" />
     </fragment>
     <fragment
         android:id="@+id/fraud"
         android:name="com.example.myapplication.ui.fragment.Fraud"
         android:label="fragment_fraud"
-        tools:layout="@layout/fragment_fraud" />
+        tools:layout="@layout/fragment_fraud">
+        <action
+            android:id="@+id/action_fraud_to_cardPaiement"
+            app:destination="@id/cardPaiement" />
+        <action
+            android:id="@+id/action_fraud_to_cashPaiement"
+            app:destination="@id/cashPaiement" />
+        <action
+            android:id="@+id/action_fraud_to_futurePaiement"
+            app:destination="@id/futurePaiement" />
+    </fragment>
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.myapplication.ui.fragment.LoginFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" >
+        tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_homePage"
+            app:destination="@id/homePage" />
+    </fragment>
+    <fragment
+        android:id="@+id/cardPaiement"
+        android:name="com.example.myapplication.ui.fragment.CardPaiement"
+        android:label="fragment_card_paiement"
+        tools:layout="@layout/fragment_card_paiement">
+        <action
+            android:id="@+id/action_cardPaiement_to_fraudCheckingScreen"
+            app:destination="@id/fraudCheckingScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/cashPaiement"
+        android:name="com.example.myapplication.ui.fragment.CashPaiement"
+        android:label="fragment_cash_paiement"
+        tools:layout="@layout/fragment_cash_paiement">
+        <action
+            android:id="@+id/action_cashPaiement_to_fraudCheckingScreen"
+            app:destination="@id/fraudCheckingScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/futurePaiement"
+        android:name="com.example.myapplication.ui.fragment.FuturePaiement"
+        android:label="fragment_future_paiement"
+        tools:layout="@layout/fragment_future_paiement">
+        <action
+            android:id="@+id/action_futurePaiement_to_fraudCheckingScreen"
+            app:destination="@id/fraudCheckingScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/manuallFraudFormulaire"
+        android:name="com.example.myapplication.ui.fragment.ManuallFraudFormulaire"
+        android:label="fragment_manuall_fraud_formulaire"
+        tools:layout="@layout/fragment_manuall_fraud_formulaire">
+        <action
+            android:id="@+id/action_manuallFraudFormulaire_to_fraud"
+            app:destination="@id/fraud" />
+    </fragment>
+    <fragment
+        android:id="@+id/fraudCheckingScreen"
+        android:name="com.example.myapplication.ui.fragment.FraudCheckingScreen"
+        android:label="fragment_fraud_checking_screen"
+        tools:layout="@layout/fragment_fraud_checking_screen">
+        <action
+            android:id="@+id/action_fraudCheckingScreen_to_homePage"
+            app:destination="@id/homePage" />
+    </fragment>
+    <fragment
+        android:id="@+id/optionalTestFragment"
+        android:name="com.example.myapplication.ui.fragment.OptionalTestFragment"
+        android:label="fragment_optional_test"
+        tools:layout="@layout/fragment_optional_test">
+        <action
+            android:id="@+id/action_optionalTestFragment_to_homePage"
             app:destination="@id/homePage" />
     </fragment>
 </navigation>
