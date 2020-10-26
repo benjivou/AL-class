@@ -10,10 +10,9 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.get("/:id", async (req, res) => {
-   let a= await mem.updateOne({"tickets_id":req.body.id},{'$set': {
+   await mem.updateOne({"tickets._id":req.body.id},{$set: {
             'tickets.$.controller': req.body.controller
         }}, function(err) {console.log(err)});
-   console.log(a);
     const ticketCheck = await verifyTicket(req.body.id);
         await res.json(ticketCheck);
 });
