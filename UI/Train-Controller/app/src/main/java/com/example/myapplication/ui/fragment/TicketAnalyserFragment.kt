@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.example.myapplication.ui.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -21,14 +21,13 @@ class TicketAnalyserFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? = FragmentTicketAnalyserBinding.inflate(inflater,container,false).root
+    ): View? = FragmentTicketAnalyserBinding.inflate(inflater, container, false).root
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentTicketAnalyserBinding.bind(view)
         binding!!.resultTxt.text = args.ticketNumber
-
     }
 
 

@@ -50,6 +50,10 @@ const TrainInternalMemSchema = mongoose.Schema({
     }],
     trainStops:{
         type : [String]
+    },
+    currentStop : {
+        type : String,
+        required : true
     }
 
 

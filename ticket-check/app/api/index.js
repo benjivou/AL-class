@@ -10,7 +10,10 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.get("/:id", async (req, res) => {
-        const ticketCheck = await verifyTicket(req.params.id);
+   await mem.updateOne({"tickets._id":req.body.id},{$set: {
+            'tickets.$.controller': req.body.controller
+        }}, function(err) {console.log(err)});
+    const ticketCheck = await verifyTicket(req.body.id);
         await res.json(ticketCheck);
 });
 
@@ -31,6 +34,10 @@ app.get("/ticket/:id", async (req, res) => {
 
 
 
+
+
+
+
 async function verifyTicket(id){
     let ticket = undefined ;
     let currentTrainId = undefined ;
@@ -39,22 +46,13 @@ async function verifyTicket(id){
    ticket = await infos[0].tickets.find( element => element._id === id) ;
     currentTrainId = await infos[0].trainId ;
     stops= infos[0].trainStops ;
-
-    console.log("Ticket" + ticket);
-    console.log("TrainId" + currentTrainId);
-    console.log("stops" + stops);
-    console.log(ticket.departure);
-    console.log(ticket.destination);
     let resultat  = false ;
     if(ticket !== undefined)
     {
         const url2 = "http://localhost:3005/train/currentStop/" + currentTrainId ;
         await axios.get(url2, { headers: { Accept: "application/json" } })
             .then(res => {
-                console.log(stops.indexOf(res.data.currentStop) >= stops.indexOf(ticket.departure));
-                console.log( stops.indexOf(ticket.destination) >= stops.indexOf(res.data.nextStop));
-                console.log(stops.indexOf(ticket.destination));
-                console.log( stops.indexOf(res.data.nextStop));
+                mem.findByIdAndUpdate(infos._id,{"currentStop":res.data.currentStop});
                 if(stops.indexOf(res.data.currentStop) >= stops.indexOf(ticket.departure)){
                     if((stops.indexOf(ticket.destination) >= stops.indexOf(res.data.nextStop))){
                         resultat = true;
@@ -72,7 +70,7 @@ async function verifyTicket(id){
     }
 
 
-    return {"resultat" : resultat, "type" : ticket.type };
+    return {"resultat" : resultat, "type" : ticket.type, "ticket" : ticket };
 
 }
 

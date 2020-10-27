@@ -1,5 +1,5 @@
 {
-  "name": "fraud",
+  "name": "authentification",
   "version": "1.0.0",
   "description": "\"# services\"",
   "main": "index.js",
@@ -10,13 +10,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.21.0",
-    "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "mongoose": "^5.10.9",
     "morgan": "^1.10.0",
-    "nodemon": "^2.0.6"
+    "nodemon": "^2.0.5"
   }
 }
