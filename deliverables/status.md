@@ -11,7 +11,7 @@
 - End Scenario of creating a fraud
 
 **Color & Feedbacks of the week**
-- Android Application: Issue cause by the integration of the QR scanner integration : Orange
+- Android Application: Issue cause by the integration of the QR scanner : Orange
 
 ## Week 43
 **Done :**
