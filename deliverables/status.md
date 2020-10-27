@@ -1,5 +1,17 @@
 # Weekly  Report
 
+## Week 44
+**Done :**
+- The Android App can scan a QR Code 
+- The Android App Navigation graph is done 
+- We try our first connecxion between the Controller App to the Node Server
+**Future tasks planned :**
+- End Scenario of scanning a ticket
+- End Scenario of creating a fraud
+
+**Color & Feedbacks of the week**
+- Android Application: Issue cause by the integration of the QR scanner integration : Orange
+
 ## Week 43
 **Done :**
 - Add architecture details and justification (which component is used + flow)
