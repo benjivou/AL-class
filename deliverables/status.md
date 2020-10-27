@@ -4,11 +4,13 @@
 **Done :**
 - The Android App can scan a QR Code 
 - The Android App Navigation graph is done 
-- We try our first connecxion between the Controller App to the Node Server
+- We finished the payment and fraud back end components 
+- The authorization component is also done
 
 **Future tasks planned :**
 - End Scenario of scanning a ticket
 - End Scenario of creating a fraud
+- Add the staistics component 
 
 **Color & Feedbacks of the week**
 - Android Application: Issue cause by the integration of the QR scanner : Orange
