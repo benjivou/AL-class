@@ -25,14 +25,14 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(morgan('short'));
 
 
-    /*mongoose.connect(process.env.DB_CONNECTION,
+mongoose.connect(process.env.DB_CONNECTION,
     {
         useNewUrlParser: true,
         useUnifiedTopology: true,
         useCreateIndex: true,
         useFindAndModify: false
     }).then(()=>{
-    console.log(`connection to database established`)});*/
+        console.log(`connection to database established`)});
 
 async function getStops(trainref){
     let stops = undefined;
