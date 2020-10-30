@@ -14,17 +14,36 @@ app.get("/getToken", async (req, res) => {
     console.log(req.query)
     try{
 
-        const user =  await User.find({"Users.userName" : req.query.username,"Users.passWord" : req.query.password });
+        const user =  await User.find({"users.userName" : req.query.username,"users.passWord" : req.query.password });
         console.log(user);
         await res.json({
-            token :user._id
-            //token : "5f929d3af4889792258187d9"
+            token :user[0]._id
+
         });
 
 
     }catch(err) {
         await res.json({message: "userName or passWord is wrong !!"});
     }
+});
+
+app.post("/addUser", async (req, res) => {
+    console.log(req.body);
+
+    const user = new User ({
+        //_id : req.body.id,
+        type : req.body.type,
+        userName : req.body.userName ,
+        passWord : req.body.passWord,
+    });
+    try{
+        user.save();
+    }catch (e) {
+        await res.json({"message": e})
+    }
+    await res.json({
+        "token" : user._id}
+        );
 });
 
 module.exports = app;
