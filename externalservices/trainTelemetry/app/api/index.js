@@ -2,63 +2,70 @@ const express  = require('express');
 const bodyParser = require('body-parser');
 const app =  express();
 const Train = require('../models/telemetry');
-
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
 }));
 
-app.get("/:id", async (req, res) => {
+app.get("/:id/:tripId", async (req, res) => {
     try{
-        const train = await Train.findById(req.params.id);
+        const train = await Train.find({"_id" :req.params.id, "trips._id": req.params.tripId});
         await res.json(train);
     }catch(err) {
         await res.json({message: err});
     }
 });
-app.get("/currentStop/:id", async (req, res) => {
+
+app.get("/currentStop/:trainId/:tripId", async (req, res) => {
     try{
-        const train = await Train.findById(req.params.id);
+        const train = await Train.findOne({ "trips._id": req.params.tripId});
+        let trip = train.trips.find(element => element._id === req.params.tripId);
         await res.json({
-            currentStop :train.currentStop,
-            nextStop : train.nextStop
+            currentStop :trip.currentStop,
+            nextStop : trip.nextStop
         });
     }catch(err) {
         await res.json({message: err});
     }
 });
-app.get("/stops/:id", async (req, res) => {
+
+app.get("/stops/:trainId/:tripId", async (req, res) => {
     try{
-        const train = await Train.findById(req.params.id);
-        await res.json(train.stops);
+        const train = await Train.findOne({ "trips._id": req.params.tripId});
+        await res.json(train.trips.find(element => element._id === req.params.tripId).stops);
     }catch(err) {
         await res.json({message: err});
     }
 });
-app.post("/",async (req,res) => {
-    const train = new Train({
-        _id: req.body.id,
-        currentStop : req.body.currentStop,
-        nextStop : req.body.nextStop,
-        stops :req.body.stops
-    });
-    try{
-        const savedT = await train.save();
-        await res.json(savedT);
-    }catch(err) {
-        await res.json({message: err});
+app.post("/:id",async (req,res) => {
+    let train = await Train.findById(req.params.id);
+    if(train === undefined){
+        train = new Train({
+            _id: req.params.id,
+            trips:[{
+                _id : req.body.tripId,
+                currentStop : req.body.currentStop,
+                nextStop : req.body.nextStop,
+                stops :req.body.stops
+            }]
+        });
+        await train.save();
+        await res.json(train);
+    }else {
+        await Train.updateOne({_id :req.params.id},
+        { $push: { trips : req.body} });
+        await res.json(true);
+
     }
+
 });
 
-app.put("/:id", async (req,res) => {
-    Train.findByIdAndUpdate(req.params.id,req.body, {new: true},
-
-    (err, todo) => {
-        // Handle any possible database errors
-        if (err) return res.status(500).send(err);
-        return res.send(todo);
-    })
+app.put("/currentStop/:id", async (req,res) => {
+    await Train.updateOne({"_id":req.params.id, "trips._id":req.body._id},{$set: {
+            'trips.$.currentStop':req.body.currentStop,
+            'trips.$.nextStop': req.body.nextStop
+        }}, function(err) {console.log(err)});
+    await res.json(true);
 });
 
 

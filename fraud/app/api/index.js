@@ -10,6 +10,14 @@ const fraudType = {
     NOTICKET : 50,
     FALSIFIED : 70
 };
+app.get('/frauds', async (req,res)=>{
+    try{
+        let frauds = await Fraud.find();
+        await res.json(frauds);
+    }catch (e) {
+        await res.json({"message": e})
+    }
+});
 
 app.post("/declare/fraud", async (req, res) => {
     console.log(req.body);

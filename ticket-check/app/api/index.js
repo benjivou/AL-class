@@ -31,46 +31,45 @@ app.get("/ticket/:id", async (req, res) => {
     }
 });
 
-
-
-
-
-
-
-
 async function verifyTicket(id){
     let ticket = undefined ;
-    let currentTrainId = undefined ;
     let stops= undefined ;
-    let infos = await mem.find({"tickets._id": id}) ;
-   ticket = await infos[0].tickets.find( element => element._id === id) ;
-    currentTrainId = await infos[0].trainId ;
+    let infos = await mem.find() ;
+    ticket = await infos[0].tickets.find( element => element._id === id) ;
+    let trainId = await infos[0].trainId ;
+    let tripId = await infos[0]._id;
     stops= infos[0].trainStops ;
-    let resultat  = false ;
+    let result  = false ;
     if(ticket !== undefined)
     {
-        const url2 = "http://localhost:3005/train/currentStop/" + currentTrainId ;
+        console.log("in");
+        const url2 = "http://localhost:3005/train/currentStop/" + trainId + "/" + tripId;
         await axios.get(url2, { headers: { Accept: "application/json" } })
             .then(res => {
-                mem.findByIdAndUpdate(infos._id,{"currentStop":res.data.currentStop});
+                console.log(stops.indexOf(ticket.destination) + "   " +  stops.indexOf(res.data.nextStop));
+                console.log(stops);
+                mem.findByIdAndUpdate(infos[0]._id,{"currentStop":res.data.currentStop}, function(err) {console.log(err)});
                 if(stops.indexOf(res.data.currentStop) >= stops.indexOf(ticket.departure)){
-                    if((stops.indexOf(ticket.destination) >= stops.indexOf(res.data.nextStop))){
-                        resultat = true;
+                    if(stops.indexOf(ticket.destination) >= stops.indexOf(res.data.nextStop)){
+                        console.log("ind");
+                        result = true;
+                        console.log(result);
                     }else{
-                        resultat = false;
+                        console.log("ind False ");
+                        result = false;
                     }
                 }else {
-                    resultat = false;
+                    console.log("ind False 2");
+                    result = false;
                 }
             });
-
     }
     else {
-        resultat = false;
+        result = false;
+        return {"result" : result, "type":"ticket unfound"};
     }
+    return {"result" : result, "type" : ticket.type, "ticket" : ticket };
 
-
-    return {"resultat" : resultat, "type" : ticket.type, "ticket" : ticket };
 
 }
 

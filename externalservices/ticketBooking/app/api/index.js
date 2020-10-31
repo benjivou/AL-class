@@ -19,9 +19,9 @@ app.get("/ticket/:id", async (req, res) => {
     }
 });
 
-app.get("/tickets/:trainRef", async (req, res) => {
+app.get("/tickets/:tripId", async (req, res) => {
     try{
-        const tickets = await Ticket.find({'trainRef': req.params.trainRef} );
+        const tickets = await Ticket.find({'tripId': req.params.tripId} );
         await res.json(tickets);
     }catch(err) {
         await res.json({message: err});
