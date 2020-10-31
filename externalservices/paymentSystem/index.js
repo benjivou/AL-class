@@ -28,7 +28,7 @@ app.post("/bank", async (req, res) => {
 
     await res.json(result)
 });
-// localhost:3006
+
 app.listen(3007, () => {
     console.log(" Fraud component is up and listening on 3007...")
 });

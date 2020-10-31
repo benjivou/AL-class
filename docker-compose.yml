@@ -1,0 +1,46 @@
+version: '3'
+services:
+  authentificationservice:
+    build: ./externalservices/authentification
+    ports:
+      - "3001:3001"
+
+  paymentsystemservice:
+    build: ./externalservices/paymentSystem
+    ports:
+      - "3007:3007"
+
+  ticketbookingservice:
+    build: ./externalservices/ticketBooking
+    ports:
+      - "3004:3004"
+
+  traintelemetryservice:
+    build: ./externalservices/trainTelemetry
+    ports:
+      - "3005:3005"
+
+
+  fraudservice:
+    build: ./fraud
+    ports:
+      - "3006:3006"
+
+  statisticsservice:
+    build: ./statistics
+    ports:
+      - "3009:3009"
+
+
+  ticketcheckservice:
+    build: ./ticket-check
+    ports:
+      - "3003:3003"
+
+
+
+
+
+
+
+
