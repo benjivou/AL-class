@@ -9,6 +9,7 @@ const bodyParser = require('body-parser');
 require('dotenv/config');
 const mem = require('./app/models/internal-mem');
 let trainId = "ABCDEFGH" ;
+const FormData = require('form-data');
 
 
 
@@ -97,13 +98,26 @@ app.post('/start/:id', async (req,response)=>{
                 return res.data ;
             });
         console.log(frauds);
-        let data = {
-            "id":infos[0]._id,
-            "tickets": infos[0].tickets,
-            "frauds" : frauds
-        };
-        await axios.post("http://localhost:3009",data,{ headers: { Accept: "application/json" } });
-
+        /* STATISTICS PART 
+        let data = new FormData();
+        data.append("id",infos[0]._id);
+        data.append("tickets",infos[0].tickets);
+        data.append("frauds", frauds);
+        await axios({
+            method: 'post',
+            url: 'http://localhost:3009',
+            data: data,
+            headers: {'Content-Type': 'multipart/form-data' }
+        })
+            .then(function (response) {
+                //handle success
+                console.log(response);
+            })
+            .catch(function (response) {
+                //handle error
+                console.log(response);
+            });
+*/
 
 
 
