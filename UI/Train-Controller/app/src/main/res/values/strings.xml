@@ -11,4 +11,7 @@
     <string name="no_barcode_detected">No Barcode Detected</string>
     <string name="goToTicketInput">Entrée manuel de billet</string>
     <string name="titre_de_la_verification">Titre de la verification</string>
+    <string name="selectionner_le_type_de_fraude">Selectionner le type de fraude :</string>
+    <string name="cr_ation_de_la_fraude">Création de la fraude</string>
+    <string name="pageDeFraudeTitle">Page de Fraude</string>
 </resources>
