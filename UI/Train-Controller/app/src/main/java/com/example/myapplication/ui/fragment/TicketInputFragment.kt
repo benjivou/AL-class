@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.myapplication.R
-import com.example.myapplication.data.restCalls
+import com.example.myapplication.data.models.Ticket
 import com.example.myapplication.databinding.FragmentTicketInputBinding
 import kotlinx.android.synthetic.main.fragment_ticket_input.*
 
@@ -21,6 +21,7 @@ private const val TAG = "TicketInputFragment"
 
 class TicketInputFragment : Fragment() {
     private var binding: FragmentTicketInputBinding? = null
+    private var ticket: Ticket? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,17 +35,15 @@ class TicketInputFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentTicketInputBinding.bind(view)
         binding!!.validTicketBtn?.setOnClickListener {
-            val ticketId = binding!!.editTextNumber.text
+            val ticketId = binding!!.editText.text
             if (!ticketId.isNullOrEmpty()) {
                 Log.d(TAG, "onViewCreated: $ticketId")
-                restCalls.getTicketInfos(ticketId.toString())
-            }
-            findNavController().navigate(
-                TicketInputFragmentDirections.actionTicketInputFragmentToTicketAnalyserFragment(
-                    editTextNumber.text.toString()
+                findNavController().navigate(
+                    TicketInputFragmentDirections.actionTicketInputFragmentToTicketAnalyserFragment(
+                        editText.text.toString()
+                    )
                 )
-            )
+            }
         }
     }
-
 }

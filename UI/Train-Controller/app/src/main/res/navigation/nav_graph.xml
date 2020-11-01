@@ -119,6 +119,9 @@
         android:name="com.example.myapplication.ui.fragment.OptionalTestFragment"
         android:label="fragment_optional_test"
         tools:layout="@layout/fragment_optional_test">
+        <argument
+            android:name="ticket"
+            app:argType="com.example.myapplication.data.models.Ticket" />
         <action
             android:id="@+id/action_optionalTestFragment_to_homePage"
             app:destination="@id/homePage" />

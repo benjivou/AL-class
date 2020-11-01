@@ -2,13 +2,11 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 const morgan = require('morgan');
-const mongoose = require('mongoose');
-const axios = require('axios');
 app.use(cors());
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 require('dotenv/config');
-const mem = require('./app/models/internal-mem');
-
+const Statistics = require('./app/models/statistics');
 
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
@@ -28,22 +26,28 @@ mongoose.connect(process.env.DB_CONNECTION,
         useCreateIndex: true,
         useFindAndModify: false
     }).then(()=>{
-        console.log(`connection to database established`)});
+    console.log(`connection to database established`)});
 
-const ticketCheckService_router = require('./app/api/index.js');
-app.use('/ticketCheck',ticketCheckService_router);
+app.post('/',async (req,res)=>{
+    console.log(req.body);
+    let stats = new Statistics({
+        _id : req.body._id,
+        tickets : req.body.tickets,
+        frauds: req.body.frauds
+    });
+    try{
+        let savedStats = await stats.save();
+        await res.json(savedStats);
+    }catch (e) {
+        console.log(e)
+    }
 
-const startService_router = require('./app/api/start.js');
-app.use('/start',startService_router);
-
-
-/******************get train's current Stop******************/
-app.get('/currentStop', async (req, res) =>{
-    let infos = await mem.find();
-   await res.status(200).json(infos[0].currentStop);
 });
 
-// localhost:3003
-app.listen(3003, () => {
-    console.log(" Ticket ckeck component is up and listening on 3003...")
+const statsService_router = require('./app/api/index');
+app.use('/stats',statsService_router);
+
+// localhost:3009
+app.listen(3009, () => {
+    console.log(" Statistics is up and listening on 3009...")
 });
