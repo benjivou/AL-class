@@ -128,7 +128,7 @@
     </fragment>
     <fragment
         android:id="@+id/cashPaiementFragment"
-        android:name="com.example.myapplication.cashPaiementFragment"
+        android:name="com.example.myapplication.ui.fragment.cashPaiementFragment"
         android:label="fragment_cash_paiement2"
         tools:layout="@layout/fragment_cash_paiement2" >
         <action

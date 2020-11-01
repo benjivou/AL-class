@@ -24,7 +24,10 @@
     <string name="nom">Nom</string>
     <string name="pr_nom">Prénom</string>
     <string name="adresse_email">Adresse email</string>
-    <string name="adresse_email">Adresse email</string>
     <string name="l_amende_est_de_s">L\'amende est de : %s €</string>
     <string name="le_mode_de_paiement_est_pris_en_compte">Le mode de paiement est pris en compte</string>
+
+    <string-array name="fraud_types">
+        <item>reduced</item>
+    </string-array>
 </resources>
