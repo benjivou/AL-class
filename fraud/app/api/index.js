@@ -10,15 +10,53 @@ const fraudType = {
     NOTICKET : 50,
     FALSIFIED : 70
 };
-app.get('/frauds', async (req,res)=>{
+/******************get fraud's list******************/
+app.get('/frauds/:id', async (req,res)=>{
+
     try{
         let frauds = await Fraud.find();
+        await sendDataToTelemetry(req.params.id, frauds);
+    //    await clearDb();
         await res.json(frauds);
     }catch (e) {
         await res.json({"message": e})
     }
 });
 
+/******************send Data to Fraud telemetry******************/
+async function sendDataToTelemetry(id,frauds){
+    let data = {"id": id,
+        "frauds": frauds,
+    };
+    await axios({method: 'post', url: 'http://localhost:3010', data: data, headers: { Accept: "application/json" }})
+        .catch(function (response) {console.log(response); });
+    return true;
+}
+
+/******************clear train's internal DB******************/
+async function clearDb(){
+    Fraud.deleteMany({},function(err, data) {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log( data);
+        }
+    });
+}
+
+/******************get cash amount payed to the correspendant controller******************/
+app.get('/cash/:id', async (req,res)=>{
+    let sum = 0;
+    let controllerFrauds = await Fraud.find({'controller': req.params.id, "paymentType":"cash"});
+    console.log(controllerFrauds);
+    controllerFrauds.forEach(f=>{
+        sum = sum +f.amount ;
+    });
+    await  res.json({"sum": sum});
+
+});
+
+/******************declare a new fraud******************/
 app.post("/declare/fraud", async (req, res) => {
     console.log(req.body);
     let price1 = 0 ;
@@ -47,6 +85,7 @@ app.post("/declare/fraud", async (req, res) => {
         "FraudPrice:" : price1});
 });
 
+/******************pay fraud cash******************/
 app.put("/pay/cash", async (req, res) => {
     let fraud = await Fraud.findById( req.body.id );
     if(!fraud.paid){
@@ -64,6 +103,7 @@ app.put("/pay/cash", async (req, res) => {
 
 });
 
+/******************pay fraud online******************/
 app.put("/pay/cb", async (req, res) => {
     let fraud = await Fraud.findById( req.body.id);
     let bankAuth =  await axios.post("http://localhost:3007/bank",req.body, { headers: { Accept: "application/json" } } );
@@ -87,7 +127,7 @@ app.put("/pay/cb", async (req, res) => {
 
 });
 
-
+/******************pay fraud later******************/
 app.put("/pay/later", async (req, res) => {
     let fraud = await Fraud.findById(req.body.id);
     let initialPrice = fraud.amount;
@@ -106,11 +146,7 @@ app.put("/pay/later", async (req, res) => {
                 return res.send(todo);
             });
     }else {return res.json("Already paid !")}
-
-
 });
-
-
 
 
 module.exports = app;

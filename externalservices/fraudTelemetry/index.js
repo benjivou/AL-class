@@ -6,8 +6,7 @@ app.use(cors());
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 require('dotenv/config');
-const fraud_router_service = require('./app/api/index');
-
+const FraudTelemetry = require('./app/models/fraudTelemetry');
 
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
@@ -15,13 +14,6 @@ app.use((req, res, next) => {
     res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
     next()
 });
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
-
-app.use(morgan('short'));
-
-
 
 mongoose.connect(process.env.DB_CONNECTION,
     {
@@ -33,9 +25,28 @@ mongoose.connect(process.env.DB_CONNECTION,
     console.log(`connection to database established`)});
 
 
-app.use('/',fraud_router_service);
 
-// localhost:3006
-app.listen(3006, () => {
-    console.log(" Fraud component is up and listening on 3006...")
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+app.use(morgan('short'));
+
+app.post('/', async (req,res)=>{
+    let fraudTelemtry = new FraudTelemetry({
+        _id: req.body.id ,
+        frauds : req.body.frauds
+    });
+
+        let saved = fraudTelemtry.save();
+        await res.status(201).json(saved);
+
 });
+
+// localhost:3010
+app.listen(3010, () => {
+    console.log(" Fraud telemetry is up and listening on 3010...")
+});
+
+
+

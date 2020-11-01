@@ -15,7 +15,6 @@ app.get("/getToken", async (req, res) => {
     try{
 
         const user =  await User.find({"users.userName" : req.query.username,"users.passWord" : req.query.password });
-        console.log(user);
         await res.json({
             token :user[0]._id
 

@@ -3,63 +3,63 @@ const mongoose = require('mongoose');
 const StatisticsSchema = mongoose.Schema({
         _id : {
             type: String ,
-            required : true
+            required : false
         },
        tickets:[{
            _id:{
                type : String,
-               required : true
+               required : false
            },
            passengerName : {
                type : String ,
-               required : true
+               required : false
            },
            type : {
                type: String ,
-               required : true
+               required : false
            },
            trainRef : {
                type : String,
-               required : true
+               required : false
            },
            departure : {
                type : String,
-               required : true
+               required : false
            },
            destination:{
                type : String,
-               required : true
+               required : false
            },
            price : {
                type : Number,
-               required : true
+               required : false
            },
            date : {
                type : String,
-               required : true
+               required : false
            },
            controller:{
                type: String,
-               required : true
+               required : false
            }
        }],
 
        frauds : [{
            type : {
                type : String ,
-               required : true
+               required : false
            },
            currentStop : {
                type: String ,
-               required : true
+               required : false
            },
            controller : {
                type : String,
-               required : true
+               default : ""
            },
            time : {
                type : Number,
-               required : true
+               required : false
            },
            paymentType : {
                type: String,

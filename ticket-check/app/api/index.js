@@ -9,6 +9,7 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
+/******************check whether the ticket is valid or not by its id ******************/
 app.get("/:id", async (req, res) => {
    await mem.updateOne({"tickets._id":req.params.id},{$set: {
             'tickets.$.controller': req.query.controllerId
@@ -44,6 +45,7 @@ app.get("/ticket/:id", async (req, res, next) => {
     }
 });
 
+/******************find ticket and check whether the infos in it are valid or not******************/
 async function verifyTicket(id){
     let ticket = undefined ;
     let stops= undefined ;
