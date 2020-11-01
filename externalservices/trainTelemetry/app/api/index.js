@@ -7,6 +7,7 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
+/******************get Train infos by its id and tripId ******************/
 app.get("/:id/:tripId", async (req, res) => {
     try{
         const train = await Train.find({"_id" :req.params.id, "trips._id": req.params.tripId});
@@ -16,6 +17,7 @@ app.get("/:id/:tripId", async (req, res) => {
     }
 });
 
+/******************get Train current Stop by its id and tripId ******************/
 app.get("/currentStop/:trainId/:tripId", async (req, res) => {
     try{
         const train = await Train.findOne({ "trips._id": req.params.tripId});
@@ -29,6 +31,7 @@ app.get("/currentStop/:trainId/:tripId", async (req, res) => {
     }
 });
 
+/******************get Train's list of stops by its id and tripId ******************/
 app.get("/stops/:trainId/:tripId", async (req, res) => {
     try{
         const train = await Train.findOne({ "trips._id": req.params.tripId});
@@ -37,6 +40,8 @@ app.get("/stops/:trainId/:tripId", async (req, res) => {
         await res.json({message: err});
     }
 });
+
+/******************Post new Train infos or simply a new planned trip ******************/
 app.post("/:id",async (req,res) => {
     let train = await Train.findById(req.params.id);
     if(train === undefined){
