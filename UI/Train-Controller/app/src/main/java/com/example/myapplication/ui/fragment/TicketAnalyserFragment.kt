@@ -13,6 +13,7 @@ import androidx.navigation.fragment.navArgs
 import com.androidnetworking.AndroidNetworking
 import com.androidnetworking.error.ANError
 import com.androidnetworking.interfaces.JSONObjectRequestListener
+import com.example.myapplication.R
 import com.example.myapplication.data.models.Ticket
 import com.example.myapplication.databinding.FragmentTicketAnalyserBinding
 import kotlinx.coroutines.channels.ticker
@@ -27,7 +28,7 @@ import java.time.format.DateTimeFormatter
  */
 private const val TAG = "TicketAnalyserFragment"
 class TicketAnalyserFragment : Fragment() {
-
+    private var url :String = ""
     private val args: TicketAnalyserFragmentArgs by navArgs()
     private var binding: FragmentTicketAnalyserBinding? = null
 
@@ -40,6 +41,7 @@ class TicketAnalyserFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentTicketAnalyserBinding.bind(view)
+        url = getString(R.string.NODE_IP_ADDRESS)
         this.getTicketInfos(args.ticketNumber, "controller_id_1")
     }
 
@@ -49,7 +51,7 @@ class TicketAnalyserFragment : Fragment() {
     }
 
     private fun getTicketInfos(id: String, controllerId: String) {
-        AndroidNetworking.get("http://192.168.1.47:3003/ticketCheck/{ticketId}?controllerId={controllerId}")
+        AndroidNetworking.get("http://$url:3003/ticketCheck/{ticketId}?controllerId={controllerId}")
             .addPathParameter("ticketId", id)
             .addPathParameter("controllerId", controllerId)
             //.addQueryParameter("limit", "3")
