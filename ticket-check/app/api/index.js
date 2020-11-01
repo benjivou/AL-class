@@ -10,24 +10,37 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.get("/:id", async (req, res) => {
-   await mem.updateOne({"tickets._id":req.body.id},{$set: {
-            'tickets.$.controller': req.body.controller
-        }}, function(err) {console.log(err)});
-    const ticketCheck = await verifyTicket(req.body.id);
-        await res.json(ticketCheck);
+   await mem.updateOne({"tickets._id":req.params.id},{$set: {
+            'tickets.$.controller': req.query.controllerId
+        }}, function(err) {
+       if(err !== null) console.log(err)
+   });
+    const ticketCheck = await verifyTicket(req.params.id);
+        return res.status(200).json(ticketCheck);
 });
 
-app.get("/ticket/:id", async (req, res) => {
-    let ticket = undefined;
+app.get("/ticket/:id", async (req, res, next) => {
     console.log(req.params.id);
     try{
-       mem.find({"tickets._id": req.params.id }).exec(function(err, ticket1){
-           ticket = ticket1.tickets;
-            console.log(ticket1[0].tickets.find( element => element._id === req.params.id))
+       await mem.find({"tickets._id": req.params.id }).exec(function(err, ticket1){
+           if(err){
+               console.log(err)
+               res.status(500).json({message: err.toString()})
+               next();
+           } else {
+               if(ticket1[0] === undefined){
+                   // ticket does not exists -> 204 No content
+                   return res.status(204).json();
+               }
+               return res.status(200).json(ticket1[0].tickets.find( element => element._id === req.params.id));
+               //console.log(ticket1[0].tickets.find( element => element._id === req.params.id))
+           }
         });
-        await res.json(ticket);
+
+
     }catch(err) {
-        await res.json(ticket);
+        console.log(err);
+        res.status(500).json({message: err.toString()})
     }
 });
 
