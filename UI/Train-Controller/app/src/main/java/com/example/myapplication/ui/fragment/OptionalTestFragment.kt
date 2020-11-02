@@ -30,7 +30,16 @@ class OptionalTestFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?){
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentOptionalTestBinding.bind(view)
-        binding!!.infoTxt.text = args.ticket.toString()
+        var toBeDisplayed = ""
+        if(args.ticketError.error !== ""){
+             toBeDisplayed += args.ticketError.toString()
+        }
+        if(args.ticket.id !== ""){
+            //Ticket found
+            toBeDisplayed += args.ticket.toString()
+        }
+        binding!!.infoTxt.text = toBeDisplayed
+
     }
 
     override fun onDestroyView() {
