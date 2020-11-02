@@ -43,7 +43,7 @@ app.get('/currentStop', async (req, res) =>{
    await res.status(200).json(infos[0].currentStop);
 });
 
-// localhost:3003
+
 app.listen(3003, () => {
     console.log(" Ticket ckeck component is up and listening on 3003...")
 });

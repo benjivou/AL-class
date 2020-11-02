@@ -35,7 +35,7 @@ mongoose.connect(process.env.DB_CONNECTION,
 
 app.use('/',fraud_router_service);
 
-// localhost:3006
+
 app.listen(3006, () => {
     console.log(" Fraud component is up and listening on 3006...")
 });
