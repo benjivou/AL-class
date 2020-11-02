@@ -9,12 +9,12 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
-app.get("/getToken", async (req, res) => {
+app.get("/getToken/:userName/:passWord", async (req, res) => {
 
-    console.log(req.query)
+
     try{
 
-        const user =  await User.find({"users.userName" : req.query.username,"users.passWord" : req.query.password });
+        const user =  await User.find({"users.userName" : req.params.username,"users.passWord" : req.params.password });
         await res.json({
             token :user[0]._id
 
