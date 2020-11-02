@@ -20,6 +20,7 @@ app.get("/:id", async (req, res) => {
         return res.status(200).json(ticketCheck);
 });
 
+
 app.get("/ticket/:id", async (req, res, next) => {
     console.log(req.params.id);
     try{

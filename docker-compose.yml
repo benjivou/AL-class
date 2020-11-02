@@ -20,6 +20,10 @@ services:
     ports:
       - "3005:3005"
 
+  fraudetelemetryservice:
+    build: ./externalservices/fraudTelemetry
+    ports:
+      - "3010:3010"
 
   fraudservice:
     build: ./fraud
