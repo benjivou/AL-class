@@ -33,12 +33,13 @@ mongoose.connect(process.env.DB_CONNECTION,
     }).then(()=>{
     console.log(`connection to database established`)});
 
-const trainInfoService_router = require('./app/api');
+const authentification_router = require('./app/api');
 
-app.use('/authentification',trainInfoService_router );
+app.use('/authentification',authentification_router );
 
 
 // localhost:3001
 app.listen(3001, () => {
     console.log(" authentification  is up and listening on 3001...")
 });
+

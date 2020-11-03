@@ -2,10 +2,13 @@ const mongoose = require('mongoose');
 
 
 const userInfoSchema = mongoose.Schema({
-    _id:{
-        type : String,
+
+    _id : {
+        type : String ,
         required : true
     },
+
+
     userName : {
         type : String ,
         required : true
@@ -13,6 +16,11 @@ const userInfoSchema = mongoose.Schema({
     type : {
         type: String ,
         required : true
+    },
+    passWord : {
+        type: String ,
+        required : true
+
     }
 
 });

@@ -10,23 +10,18 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
-app.get("/ticket/:id", async (req, res) => {
-    try{
-        const ticket = await Ticket.findById(req.params.id);
-        await res.json(ticket);
-    }catch(err) {
-        await res.json({message: err});
-    }
-});
+/******************Get all Tickets that have that trip Id ******************/
 
-app.get("/tickets/:trainRef", async (req, res) => {
+app.get("/tickets/:tripId", async (req, res) => {
     try{
-        const tickets = await Ticket.find({'trainRef': req.params.trainRef} );
+        const tickets = await Ticket.find({'tripId': req.params.tripId} );
         await res.json(tickets);
     }catch(err) {
         await res.json({message: err});
     }
 });
+
+/******************Add a new Ticket ******************/
 
 app.post("/",async (req,res) => {
     const ticket = new Ticket({

@@ -1,9 +1,11 @@
 const mongoose = require('mongoose');
 
-
-
 const TrainInternalMemSchema = mongoose.Schema({
     trainId:{
+        type : String,
+        required : true
+    },
+    _id:{
         type : String,
         required : true
     },

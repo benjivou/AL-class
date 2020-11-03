@@ -11,4 +11,27 @@
     <string name="no_barcode_detected">No Barcode Detected</string>
     <string name="goToTicketInput">Entrée manuel de billet</string>
     <string name="titre_de_la_verification">Titre de la verification</string>
+    <string name="selectionner_le_type_de_fraude">Selectionner le type de fraude :</string>
+    <string name="cr_ation_de_la_fraude">Création de la fraude</string>
+    <string name="pageDeFraudeTitle">Page de Fraude</string>
+    <string name="le_paiement_de_cette_fraude_est_de">Le paiement de cette fraude est de : %s €</string>
+    <string name="carte_bleu">Carte Bleu</string>
+    <string name="paiement_en_cash">paiement en cash</string>
+    <string name="paiement_diff_r">paiement différé</string>
+    <string name="passer_la_carte_dans_le_terminal">Passer la carte dans le terminal</string>
+    <string name="je_confirme_que_le_paiement_de_la_somme_de_s_est_bien_effectu">Je confirme que le paiement de la somme de %s € est bien effectué</string>
+    <string name="valider_informations">Valider informations</string>
+    <string name="nom">Nom</string>
+    <string name="pr_nom">Prénom</string>
+    <string name="adresse_email">Adresse email</string>
+    <string name="l_amende_est_de_s">L\'amende est de : %s €</string>
+    <string name="le_mode_de_paiement_est_pris_en_compte">Le mode de paiement est pris en compte</string>
+    <string name="fraude_en_cours_d_valuation">Fraude en cours d\'évaluation</string>
+    <string name="retour_la_page_d_accueil">retour à la page d\'accueil</string>
+    <string name="adresse">Adresse</string>
+
+    <string-array name="fraud_types">
+        <item>reduced</item>
+        <item>noticket</item>
+    </string-array>
 </resources>
