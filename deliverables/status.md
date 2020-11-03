@@ -1,5 +1,17 @@
 # Weekly  Report
 
+## Week 45
+**Done :**
+- End Scenario of scanning a ticket
+- End Scenario of creating a fraud
+
+**Future tasks planned :**
+- Add the staistics component 
+- Prepare the interview 
+
+**Color & Feedbacks of the week**
+- Orange
+
 ## Week 44
 **Done :**
 - The Android App can scan a QR Code 
