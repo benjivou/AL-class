@@ -26,8 +26,12 @@
     <string name="adresse_email">Adresse email</string>
     <string name="l_amende_est_de_s">L\'amende est de : %s €</string>
     <string name="le_mode_de_paiement_est_pris_en_compte">Le mode de paiement est pris en compte</string>
+    <string name="fraude_en_cours_d_valuation">Fraude en cours d\'évaluation</string>
+    <string name="retour_la_page_d_accueil">retour à la page d\'accueil</string>
+    <string name="adresse">Adresse</string>
 
     <string-array name="fraud_types">
         <item>reduced</item>
+        <item>noticket</item>
     </string-array>
 </resources>

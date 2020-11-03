@@ -82,7 +82,7 @@ app.post("/declare/fraud", async (req, res) => {
     }
     await res.json({
         "fraudId" : fraud._id,
-        "FraudPrice:" : price1});
+        "fraudPrice" : price1});
 });
 
 /******************pay fraud cash******************/

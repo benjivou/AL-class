@@ -5,31 +5,32 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.myapplication.R
-import com.example.myapplication.databinding.FragmentCardPaiementBinding
-import com.example.myapplication.databinding.FragmentCashPaiementBinding
+import androidx.navigation.fragment.findNavController
+import com.example.myapplication.databinding.FragmentFraudCheckingScreenBinding
 
 /**
  * A simple [Fragment] subclass.
- * Use the [CashPaiementFragment.newInstance] factory method to
+ * Use the [FraudCheckingScreenFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class CashPaiementFragment : Fragment() {
-    private var _binding: FragmentCashPaiementBinding? = null
+class FraudCheckingScreenFragment : Fragment() {
+    private var _binding: FragmentFraudCheckingScreenBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentCashPaiementBinding.inflate(inflater, container, false)
+        _binding = FragmentFraudCheckingScreenBinding.inflate(inflater, container, false)
         val view = binding.root
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.validBtn2.setOnClickListener {  }
+
+        binding.goToHomeBtn.setOnClickListener { findNavController().navigate(FraudCheckingScreenFragmentDirections.actionFraudCheckingScreenToHomePage()) }
     }
 
+   
 }

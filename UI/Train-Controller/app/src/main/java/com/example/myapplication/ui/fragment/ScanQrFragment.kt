@@ -22,8 +22,7 @@ import com.google.android.gms.vision.barcode.BarcodeDetector
 import kotlinx.android.synthetic.main.scan_qr_fragment.*
 import java.io.IOException
 
-private const val TAG = "ScanQr"
-
+private const val TAG = "ScanQrFragment"
 class ScanQrFragment : Fragment() {
 
     private var barcodeDetector: BarcodeDetector? = null
