@@ -15,8 +15,8 @@ import com.androidnetworking.error.ANError
 import com.androidnetworking.interfaces.JSONObjectRequestListener
 import com.example.myapplication.R
 import com.example.myapplication.data.models.Ticket
+import com.example.myapplication.data.models.TicketError
 import com.example.myapplication.databinding.FragmentTicketAnalyserBinding
-import kotlinx.coroutines.channels.ticker
 import org.json.JSONObject
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -65,26 +65,29 @@ class TicketAnalyserFragment : Fragment() {
                 override fun onResponse(response: JSONObject) {
                     if (!(response.get("result") as Boolean))
                     { //If result: 'false'
+                        var ticket = Ticket()
+                        var ticketError = TicketError("")
                         if (response.get("type") == "ticket unfound")
                         {
-                             /*val jsonTicket = response.getJSONObject("ticket");
-                             val ticket = Ticket(
-                                 jsonTicket.get("_id").toString().toInt(),
-                                 jsonTicket.get("controller").toString(),
-                                 jsonTicket.get("passengerName").toString(),
-                                 jsonTicket.get("type").toString(),
-                                 jsonTicket.get("trainRef").toString(),
-                                 jsonTicket.get("departure").toString(),
-                                 jsonTicket.get("destination").toString(),
-                                 jsonTicket.get("price").toString().toInt(),
-                                 LocalDate.parse(
-                                     jsonTicket.get("date").toString(),
-                                     DateTimeFormatter.ofPattern("dd/MM/yyyy")
-                                 )
-                             );
-                             findNavController().navigate(
-                                 TicketAnalyserFragmentDirections.actionTicketAnalyserFragmentToOptionalTestFragment(ticket)
-                             )*/
+                            ticketError.error = "No ticket with id '$id' were found"
+                            view?.post {
+                                findNavController().navigate(TicketAnalyserFragmentDirections.actionTicketAnalyserFragmentToOptionalTestFragment(ticket, ticketError))
+                            }
+                        } else if(response.get("type") == "normal"){
+                            val jsonTicket = response.getJSONObject("ticket");
+                            ticket.id = jsonTicket.get("_id").toString()
+                            ticket.controller = jsonTicket.get("controller").toString()
+                            ticket.passengerName = jsonTicket.get("passengerName").toString()
+                            ticket.type = jsonTicket.get("type").toString()
+                            ticket.trainRef =  jsonTicket.get("trainRef").toString()
+                            ticket.departure = jsonTicket.get("departure").toString()
+                            ticket.destination = jsonTicket.get("destination").toString()
+                            ticket.price = jsonTicket.get("price").toString().toFloat()
+                            ticket.date = LocalDate.parse(jsonTicket.get("date").toString(), DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+                            ticketError.error = "Error with ticket '$id'"
+                            view?.post {
+                                findNavController().navigate(TicketAnalyserFragmentDirections.actionTicketAnalyserFragmentToOptionalTestFragment(ticket, ticketError))
+                            }
                         }
                     } else
                     {
@@ -99,14 +102,18 @@ class TicketAnalyserFragment : Fragment() {
                         ticket.destination = jsonTicket.get("destination").toString()
                         ticket.price = jsonTicket.get("price").toString().toFloat()
                         ticket.date = LocalDate.parse(jsonTicket.get("date").toString(), DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+                        var ticketError = TicketError("");
                         view?.post {
-                            findNavController().navigate(TicketAnalyserFragmentDirections.actionTicketAnalyserFragmentToOptionalTestFragment(ticket))
+                            findNavController().navigate(TicketAnalyserFragmentDirections.actionTicketAnalyserFragmentToOptionalTestFragment(ticket, ticketError))
                         }
                     }
                 }
 
                 override fun onError(error: ANError) {
-                    Log.e(TAG, "onError: $error");
+                    var txt = "Network error : $error\nAre you connected to the train Wifi ?"
+                    view?.post {
+                        findNavController().navigate(TicketAnalyserFragmentDirections.actionTicketAnalyserFragmentToConnectionIssuesFragment(txt, id))
+                    }
                 }
             })
     }

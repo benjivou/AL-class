@@ -53,6 +53,9 @@
         <action
             android:id="@+id/action_ticketAnalyserFragment_to_amountFraudFragment"
             app:destination="@id/amountFraudFragment" />
+        <action
+            android:id="@+id/action_ticketAnalyserFragment_to_connectionIssuesFragment"
+            app:destination="@id/fragment_connection_issues" />
     </fragment>
     <fragment
         android:id="@+id/fraud"
@@ -121,9 +124,30 @@
         <argument
             android:name="ticket"
             app:argType="com.example.myapplication.data.models.Ticket" />
+        <argument
+            android:name="ticketError"
+            app:argType="com.example.myapplication.data.models.TicketError" />
         <action
             android:id="@+id/action_optionalTestFragment_to_homePage"
             app:destination="@id/homePage" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_connection_issues"
+        android:name="com.example.myapplication.ui.fragment.ConnectionIssuesFragment"
+        android:label="fragment_connection_issues"
+        tools:layout="@layout/fragment_connection_issues">
+        <argument
+            android:name="networkIssue"
+            app:argType="string" />
+        <argument
+            android:name="ticketNumber"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_connectionIssuesFragment_to_homepageFragment"
+            app:destination="@id/homePage" />
+        <action
+            android:id="@+id/action_connectionIssuesFragment_to_ticketAnalyserFragment"
+            app:destination="@id/ticketAnalyserFragment" />
     </fragment>
     <fragment
         android:id="@+id/cashPaiementFragment"

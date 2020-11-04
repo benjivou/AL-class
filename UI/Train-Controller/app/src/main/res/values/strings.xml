@@ -34,4 +34,5 @@
         <item>reduced</item>
         <item>noticket</item>
     </string-array>
+    <string name="retry">retry</string>
 </resources>
