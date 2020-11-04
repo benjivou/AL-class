@@ -44,14 +44,11 @@ class CardPaiementFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Handler().postDelayed({findNavController().navigate(CardPaiementFragmentDirections.actionCardPaiementFragmentToFraudCheckingScreen())}, 3000)
 
         binding.validBtn .setOnClickListener {
             binding.validBtn.isClickable = false
             doCashPaiement()
         }
-
-
 
     }
 
@@ -64,7 +61,7 @@ class CardPaiementFragment : Fragment() {
             .addBodyParameter("id", args.fraud.fraudId)
             .addBodyParameter("code",  binding.editTextNumberPassword.text.toString())
             .addBodyParameter("dateExp",  binding.expirationDateTxt.text.toString())
-            .addBodyParameter("")
+            .addBodyParameter("num",binding.numCardBankInp.text.toString())
             .build()
             .getAsJSONObject(object : JSONObjectRequestListener {
                 @RequiresApi(Build.VERSION_CODES.O)
