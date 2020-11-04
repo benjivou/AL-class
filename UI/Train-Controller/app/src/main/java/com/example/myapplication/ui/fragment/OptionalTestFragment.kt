@@ -30,12 +30,15 @@ class OptionalTestFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?){
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentOptionalTestBinding.bind(view)
+        val id = args.ticket.id
         var toBeDisplayed = ""
         if(args.ticketError.error !== ""){
              toBeDisplayed += args.ticketError.toString()
         }
         if(args.ticket.id !== ""){
             //Ticket found
+            val txt = "Ticket '$id' infos :"
+            binding!!.verificationTypeTitle.text = txt
             toBeDisplayed += args.ticket.toString()
         }
         binding!!.infoTxt.text = toBeDisplayed

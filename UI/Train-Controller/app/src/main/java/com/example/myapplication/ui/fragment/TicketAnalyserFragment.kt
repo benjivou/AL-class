@@ -2,7 +2,6 @@ package com.example.myapplication.ui.fragment
 
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,7 +16,6 @@ import com.example.myapplication.R
 import com.example.myapplication.data.models.Ticket
 import com.example.myapplication.data.models.TicketError
 import com.example.myapplication.databinding.FragmentTicketAnalyserBinding
-import kotlinx.coroutines.channels.ticker
 import org.json.JSONObject
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -110,7 +108,10 @@ class TicketAnalyserFragment : Fragment() {
                 }
 
                 override fun onError(error: ANError) {
-                    Log.e(TAG, "onError: $error");
+                    var txt = "Network error : $error\nAre you connected to the train Wifi ?"
+                    view?.post {
+                        findNavController().navigate(TicketAnalyserFragmentDirections.actionTicketAnalyserFragmentToConnectionIssuesFragment(txt, id))
+                    }
                 }
             })
     }
