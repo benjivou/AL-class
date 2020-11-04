@@ -21,30 +21,6 @@ app.get("/:id", async (req, res) => {
 });
 
 
-app.get("/ticket/:id", async (req, res, next) => {
-    console.log(req.params.id);
-    try{
-       await mem.find({"tickets._id": req.params.id }).exec(function(err, ticket1){
-           if(err){
-               console.log(err)
-               res.status(500).json({message: err.toString()})
-               next();
-           } else {
-               if(ticket1[0] === undefined){
-                   // ticket does not exists -> 204 No content
-                   return res.status(204).json();
-               }
-               return res.status(200).json(ticket1[0].tickets.find( element => element._id === req.params.id));
-               //console.log(ticket1[0].tickets.find( element => element._id === req.params.id))
-           }
-        });
-
-
-    }catch(err) {
-        console.log(err);
-        res.status(500).json({message: err.toString()})
-    }
-});
 
 /******************find ticket and check whether the infos in it are valid or not******************/
 async function verifyTicket(id){

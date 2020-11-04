@@ -10,12 +10,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "cucumber": "^7.0.0-rc.0",
     "jest": "^26.5.3",
     "axios": "^0.20.0"
   },
   "devDependencies": {
-    "@cucumber/cucumber": "^7.0.0-rc.0",
+    "cucumber": "^6.0.5",
     "chai": "^4.2.0",
     "chai-http": "^4.3.0"
   }

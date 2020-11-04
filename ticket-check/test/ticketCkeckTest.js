@@ -14,25 +14,13 @@ describe('/GET check ticket1',  () => {
 
     it('check whether the ticket is valid or not by its id ',  (done) => {
 
-        chai.request('http://localhost:3003').get('/ticketCheck/rf379190').end((err, res) => {
+        chai.request('http://localhost:3003').get('/ticketCheck/rf379190?controllerId=5f99ac7584b0c83808bb1a95').end((err, res) => {
 
-            console.log(res.body)
             res.should.have.status(200);
             done();
         });
     })
 });
 
-describe('/GET check ticket2',  () => {
 
-    it('check whether the ticket is valid or not by its id ',  (done) => {
-
-        chai.request('http://localhost:3003').get('/ticketCheck/ticket/rf379190').end((err, res) => {
-
-            console.log(res.body)
-            res.should.have.status(200);
-            done();
-        });
-    })
-});
 
