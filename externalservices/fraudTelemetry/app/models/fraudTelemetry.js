@@ -12,7 +12,7 @@ const FraudTelemetrySchema = mongoose.Schema({
         },
         currentStop : {
             type: String ,
-            required : true
+            required : false
         },
         controller : {
             type : String,
