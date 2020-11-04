@@ -50,6 +50,7 @@ class TicketAnalyserFragment : Fragment() {
     }
 
     private fun getTicketInfos(id: String, controllerId: String) {
+        Log.d(TAG, "getTicketInfos: "+"http://$url:3003/ticketCheck/{ticketId}?controllerId={controllerId}")
         AndroidNetworking.get("http://$url:3003/ticketCheck/{ticketId}?controllerId={controllerId}")
             .addPathParameter("ticketId", id)
             .addPathParameter("controllerId", controllerId)

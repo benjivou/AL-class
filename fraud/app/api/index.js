@@ -16,7 +16,7 @@ app.get('/frauds/:id', async (req,res)=>{
     try{
         let frauds = await Fraud.find();
         await sendDataToTelemetry(req.params.id, frauds);
-    //    await clearDb();
+        await clearDb();
         await res.json(frauds);
     }catch (e) {
         await res.json({"message": e})
@@ -70,7 +70,6 @@ app.post("/declare/fraud", async (req, res) => {
     let a = time.getHours();
     const fraud = new Fraud({
         type : req.body.type,
-        currentStop : req.body.currentStop ,
         controller : req.body.controller,
         time : a,
         amount : price1
@@ -82,7 +81,7 @@ app.post("/declare/fraud", async (req, res) => {
     }
     await res.json({
         "fraudId" : fraud._id,
-        "FraudPrice:" : price1});
+        "fraudPrice" : price1});
 });
 
 /******************pay fraud cash******************/
@@ -97,8 +96,8 @@ app.put("/pay/cash", async (req, res) => {
                 // Handle any possible database errors
                 if (err) return res.status(500).json(false);
             });
-        return await res.json(true);
-    }else {return res.json("Already paid !")}
+        return await res.json({"paid":true});
+    }else {return await res.json({"paid": false,"msg":"Already paid !"})}
 
 
 });
@@ -117,11 +116,11 @@ app.put("/pay/cb", async (req, res) => {
             (err, todo) => {
                 if (err) return res.status(500).send(err);
             });
-        return await res.json(true);
+            return await res.json({"paid":true})
         }
-        else  return await res.json(false);
+        else  return await res.json({"paid": false,"msg":"Already paid !"})
     }
-    else {return res.json("Already paid !")}
+    else {return await res.json({"paid": false,"msg":"Already paid !"})}
 
 
 
@@ -145,7 +144,8 @@ app.put("/pay/later", async (req, res) => {
                 if (err) return res.status(500).send(err);
                 return res.send(todo);
             });
-    }else {return res.json("Already paid !")}
+        return await res.json({"paid":true});
+    }else {return await res.json({"paid": false,"msg":"Already paid !"})}
 });
 
 

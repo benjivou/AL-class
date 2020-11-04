@@ -1,5 +1,20 @@
 # Weekly  Report
 
+## Week 44
+**Done :**
+- The Android App can scan a QR Code 
+- The Android App Navigation graph is done 
+- We finished the payment and fraud back end components 
+- The authorization component is also done
+
+**Future tasks planned :**
+- End Scenario of scanning a ticket
+- End Scenario of creating a fraud
+- Add the staistics component 
+
+**Color & Feedbacks of the week**
+- Android Application: Issue cause by the integration of the QR scanner : Orange
+
 ## Week 43
 **Done :**
 - Add architecture details and justification (which component is used + flow)

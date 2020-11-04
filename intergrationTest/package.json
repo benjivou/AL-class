@@ -1,0 +1,21 @@
+{
+  "name": "nodejs_test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "cucumber": "./node_modules/.bin/cucumber-js -f progress ./features/directory.feature -r ./steps/directory.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "jest": "^26.5.3",
+    "axios": "^0.20.0"
+  },
+  "devDependencies": {
+    "cucumber": "^6.0.5",
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0"
+  }
+}

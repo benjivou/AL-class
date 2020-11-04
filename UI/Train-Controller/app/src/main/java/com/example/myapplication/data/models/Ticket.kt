@@ -3,9 +3,8 @@ package com.example.myapplication.data.models
 import android.os.Build
 import androidx.annotation.RequiresApi
 import java.io.Serializable
-import java.lang.reflect.Array.get
 import java.time.LocalDate
-import java.util.*
+
 
 class Ticket : Serializable{
     var id: String = ""
