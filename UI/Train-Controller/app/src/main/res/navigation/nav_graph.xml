@@ -89,8 +89,8 @@
         android:label="fragment_future_paiement"
         tools:layout="@layout/fragment_future_paiement">
         <argument
-            android:name="fraudPrice"
-            app:argType="float" />
+            android:name="fraud"
+            app:argType="com.example.myapplication.data.models.Fraud" />
         <action
             android:id="@+id/action_futurePaiement_to_fraudCheckingScreen"
             app:destination="@id/fraudCheckingScreen" />
@@ -131,8 +131,8 @@
         android:label="fragment_cash_paiement"
         tools:layout="@layout/fragment_cash_paiement">
         <argument
-            android:name="fraudPrice"
-            app:argType="float" />
+            android:name="fraud"
+            app:argType="com.example.myapplication.data.models.Fraud" />
         <action
             android:id="@+id/action_cashPaiementFragment_to_fraudCheckingScreen"
             app:destination="@id/fraudCheckingScreen" />
@@ -155,8 +155,8 @@
         android:label="fragment_card_paiement"
         tools:layout="@layout/fragment_card_paiement">
         <argument
-            android:name="fraudPrice"
-            app:argType="float" />
+            android:name="fraud"
+            app:argType="com.example.myapplication.data.models.Fraud" />
         <action
             android:id="@+id/action_cardPaiementFragment_to_fraudCheckingScreen"
             app:destination="@id/fraudCheckingScreen" />

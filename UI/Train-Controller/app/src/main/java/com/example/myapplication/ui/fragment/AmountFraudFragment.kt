@@ -57,10 +57,7 @@ class AmountFraudFragment : Fragment() {
                                 response.getDouble("fraudPrice").toFloat()
                             )
                         )
-
                     )
-
-
                 }
 
                 override fun onError(error: ANError) {

@@ -41,13 +41,13 @@ class FraudFragment : Fragment() {
         Log.d(TAG, "onViewCreated: ${args.fraud.fraudId}")
 
         binding.goToBlueCardPaiement.setOnClickListener {
-            findNavController().navigate(FraudFragmentDirections.actionFraudToCardPaiementFragment(args.fraud.fraudPrice))
+            findNavController().navigate(FraudFragmentDirections.actionFraudToCardPaiementFragment(args.fraud))
         }
         binding.goToCashPaiement.setOnClickListener {
-            findNavController().navigate(FraudFragmentDirections.actionFraudToCashPaiementFragment(args.fraud.fraudPrice))
+            findNavController().navigate(FraudFragmentDirections.actionFraudToCashPaiementFragment(args.fraud))
         }
         binding.goToFacturationPaiement.setOnClickListener {
-            findNavController().navigate(FraudFragmentDirections.actionFraudToFuturePaiement(args.fraud.fraudPrice))
+            findNavController().navigate(FraudFragmentDirections.actionFraudToFuturePaiement(args.fraud))
         }
     }
 
