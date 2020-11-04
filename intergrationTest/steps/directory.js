@@ -4,21 +4,22 @@ const chai = require('chai');
 const chaiHttp = require('chai-http');
 chai.use(chaiHttp);
 
-Given(' controller connect to the app with {} and {}', async function (user,pwd) {
-    this.context['username'] = user;
-    this.context['pwd'] = pwd;
+let context = [];
+Given('controller connect to the app with {} and {}', async function (user,pwd) {
+    context.push(user);
+    context.push(pwd);
 });
 
-When('I send GET request to authentification service', async function () {
-    chai.request('http://localhost:3001').get('/authentification/getToken/'+this.context['username']+'/'+this.context['pwd']).end((err, res) => {
-
-        this.context['response'] = res.body.token;
+When('I send GET request to authentification service', (done) => {
+    chai.request('http://localhost:3001').get('/authentification/getToken/'+context[0]+'/'+context[1]).end((err, res) => {
+        context.push(res.body.token) ;
+        done();
     });
 
 });
 
 Then(/^I receive (.*)$/, async function (expectedResponse) {
-    assert.deepEqual(this.context['response'].data, expectedResponse);
+    assert.deepEqual(context[2], expectedResponse);
 })
 
 
