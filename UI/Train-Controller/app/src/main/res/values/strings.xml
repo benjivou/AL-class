@@ -43,4 +43,5 @@
     <string name="none">NONE</string>
     <string name="stats_are_loading">Stats are loading</string>
     <string name="ok">Ok</string>
+    <string name="probleme_de_connexion">"Probléme de connexion veuillez réitérer "</string>
 </resources>
