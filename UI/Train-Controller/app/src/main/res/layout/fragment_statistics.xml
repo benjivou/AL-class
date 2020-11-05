@@ -9,16 +9,18 @@
         android:id="@+id/relativeLayoutStatistics"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="76dp"
+        android:layout_marginTop="192dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="100dp">
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/nbOfControlledTicketsText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
             android:text="@string/nombre_de_tickets_controll_s"
-            android:layout_marginStart="30dp"/>
+            android:textColor="#673AB7" />
 
         <TextView
             android:id="@+id/nbOfControlledTickets"
@@ -26,35 +28,51 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_toEndOf="@+id/nbOfControlledTicketsText"
-            android:text="@string/none" />
+            android:text="@string/none"
+            android:textColor="#0C0C0C" />
 
         <TextView
             android:id="@+id/nbOfFraudsText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/nombre_de_fraudes_d_clar_es"
+            android:layout_below="@id/nbOfControlledTicketsText"
             android:layout_marginStart="30dp"
             android:layout_marginTop="10dp"
-            android:layout_below="@id/nbOfControlledTicketsText"/>
+            android:text="@string/nombre_de_fraudes_d_clar_es"
+            android:textColor="#673AB7" />
 
         <TextView
             android:id="@+id/nbOfFrauds"
-            android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_toEndOf="@+id/nbOfFraudsText"
             android:layout_below="@id/nbOfControlledTickets"
-            android:text="@string/none" />
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@+id/nbOfFraudsText"
+            android:text="@string/none"
+            android:textColor="#000000" />
 
         <Button
             android:id="@+id/returnHomeButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
-            android:layout_marginStart="100dp"
             android:layout_below="@+id/nbOfFraudsText"
-            android:text="@string/ok"/>
+            android:layout_marginStart="100dp"
+            android:layout_marginTop="102dp"
+            android:text="@string/ok" />
     </RelativeLayout>
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="96dp"
+        android:text="TextView"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.346"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="My statistics" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

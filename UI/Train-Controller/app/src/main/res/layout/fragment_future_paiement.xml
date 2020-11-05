@@ -65,6 +65,8 @@
         android:layout_marginTop="24dp"
         android:layout_marginBottom="24dp"
         android:text="@string/l_amende_est_de_s"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#000000"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/goToFraudRecap"
         app:layout_constraintEnd_toEndOf="parent"

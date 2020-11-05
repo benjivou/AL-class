@@ -21,13 +21,15 @@
 
     <TextView
         android:id="@+id/textView3"
-        android:layout_width="198dp"
-        android:layout_height="15dp"
+        android:layout_width="255dp"
+        android:layout_height="63dp"
         android:layout_marginBottom="24dp"
         android:text="@string/passer_la_carte_dans_le_terminal"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#000000"
+        android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/expirationDateTxt"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed" />
@@ -48,7 +50,7 @@
 
     <EditText
         android:id="@+id/expirationDateTxt"
-        android:layout_width="wrap_content"
+        android:layout_width="273dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:ems="10"
@@ -56,13 +58,13 @@
         android:inputType="date"
         app:layout_constraintBottom_toTopOf="@+id/numCardBankInp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.507"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <EditText
         android:id="@+id/editTextNumberPassword"
-        android:layout_width="wrap_content"
+        android:layout_width="273dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:ems="10"
@@ -70,7 +72,6 @@
         android:inputType="numberPassword"
         app:layout_constraintBottom_toTopOf="@+id/validBtn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/numCardBankInp" />
 

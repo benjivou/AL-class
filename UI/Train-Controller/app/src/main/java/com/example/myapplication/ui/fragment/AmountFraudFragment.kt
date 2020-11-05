@@ -43,7 +43,7 @@ class AmountFraudFragment : Fragment() {
             .addBodyParameter("type", args.fraudType)
             .addBodyParameter(
                 "controller",
-                "ab3678293002"
+                "5f99ac7584b0c83808bb1a95"
             ) // TODO Change it by the current controller id
             .build()
             .getAsJSONObject(object : JSONObjectRequestListener {

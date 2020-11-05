@@ -29,7 +29,7 @@ class HomePageFragment : Fragment() {
         goScanQRbtn.setOnClickListener { findNavController().navigate(HomePageFragmentDirections.actionHomePageToScanQr()) }
         goToFraudeBtn.setOnClickListener { findNavController().navigate(HomePageFragmentDirections.actionHomePageToManuallFraudFormulaire()) }
         consultStatsBtn.setOnClickListener {
-            findNavController().navigate(HomePageFragmentDirections.actionHomePageToLoadingStats("ab3678293002"))
+            findNavController().navigate(HomePageFragmentDirections.actionHomePageToLoadingStats("5f99ac7584b0c83808bb1a95"))
         }
 
     }

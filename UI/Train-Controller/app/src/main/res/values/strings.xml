@@ -49,4 +49,8 @@
     <string name="date_d_expiration">Expiration Date</string>
     <string name="code_secret">Secret code</string>
     <string name="declare_fraud">Declare fraud</string>
+    <string name="mot_de_passe">password</string>
+    <string name="login">login</string>
+    <string name="check">Check</string>
+    <string name="ticket_control_application">Ticket control Application</string>
 </resources>

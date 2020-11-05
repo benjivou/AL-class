@@ -9,7 +9,7 @@
     <Button
         android:id="@+id/goScanQRbtn"
         android:layout_width="143dp"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:text="@string/lancer_un_scan"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -49,7 +49,7 @@
     <Button
         android:id="@+id/consultStatsBtn"
         android:layout_width="144dp"
-        android:layout_height="47dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="@string/voir_mes_stats"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -42,7 +42,7 @@ class TicketAnalyserFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentTicketAnalyserBinding.bind(view)
         url = getString(R.string.NODE_IP_ADDRESS)
-        this.getTicketInfos(args.ticketNumber, "ab3678293002")
+        this.getTicketInfos(args.ticketNumber, "5f99ac7584b0c83808bb1a95")
     }
 
     override fun onDestroyView() {
