@@ -74,3 +74,7 @@ describe('/GET ticket controlled',  () => {
         });
     })
 });
+
+setTimeout((function() {
+    return process.exit(0);
+}), 2000);

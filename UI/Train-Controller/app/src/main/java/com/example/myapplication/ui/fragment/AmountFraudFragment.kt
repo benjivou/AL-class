@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.androidnetworking.AndroidNetworking
@@ -16,11 +17,13 @@ import com.androidnetworking.interfaces.JSONObjectRequestListener
 import com.example.myapplication.R
 import com.example.myapplication.data.models.Fraud
 import com.example.myapplication.databinding.FragmentAmountFraudBinding
+import com.example.myapplication.ui.viewmodels.ProfileViewModel
 import org.json.JSONObject
 
 private const val TAG = "AmountFraudFragment"
 
 class AmountFraudFragment : Fragment() {
+    private val userViewModel: ProfileViewModel by activityViewModels()
     private var _binding: FragmentAmountFraudBinding? = null
     private val binding get() = _binding!!
     private val args: AmountFraudFragmentArgs by navArgs()
@@ -43,8 +46,8 @@ class AmountFraudFragment : Fragment() {
             .addBodyParameter("type", args.fraudType)
             .addBodyParameter(
                 "controller",
-                "5f99ac7584b0c83808bb1a95"
-            ) // TODO Change it by the current controller id
+                userViewModel.user.value.toString()
+            )
             .build()
             .getAsJSONObject(object : JSONObjectRequestListener {
                 @RequiresApi(Build.VERSION_CODES.O)

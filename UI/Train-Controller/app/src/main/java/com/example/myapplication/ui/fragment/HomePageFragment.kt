@@ -5,8 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.example.myapplication.R
 import com.example.myapplication.databinding.HomeFragmentBinding
+import com.example.myapplication.ui.viewmodels.ProfileViewModel
 import kotlinx.android.synthetic.main.home_fragment.*
 
 
@@ -17,7 +21,7 @@ import kotlinx.android.synthetic.main.home_fragment.*
  */
 class HomePageFragment : Fragment() {
 
-
+    private val userViewModel: ProfileViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,6 +36,12 @@ class HomePageFragment : Fragment() {
             findNavController().navigate(HomePageFragmentDirections.actionHomePageToLoadingStats("5f99ac7584b0c83808bb1a95"))
         }
 
+        // ecoute de la connexion de l'utilisateur
+        userViewModel.user.observe(viewLifecycleOwner, Observer { user ->
+            if (user == null) {
+                findNavController().navigate(R.id.loginFragment)
+            }
+        })
     }
 
 }

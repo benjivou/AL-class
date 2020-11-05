@@ -23,4 +23,6 @@ describe('/GET check ticket1',  () => {
 });
 
 
-
+setTimeout((function() {
+    return process.exit(0);
+}), 2000);

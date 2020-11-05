@@ -43,6 +43,7 @@
     <string name="none">NONE</string>
     <string name="stats_are_loading">Stats are loading</string>
     <string name="ok">Ok</string>
+    <string name="probleme_de_connexion">"Conection issues, please try again"</string>
     <string name="logging_in">Logging in</string>
     <string name="billet_en_cours_de_traitement">Ticket processing</string>
     <string name="num_ro_de_carte_bleu">Credit card number</string>
