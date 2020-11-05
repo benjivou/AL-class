@@ -55,7 +55,7 @@ async function saveData(tripId) {
 /******************Send last trip's data to stats service ******************/
 async function sendInternalDataToStats(){
     let infos = await mem.find();
-    let frauds = await axios.get("http://fraudservice:3006/frauds", { headers: { Accept: "application/json" } } )
+    let frauds = await axios.get("http://fraudservice:3006/frauds/"+infos[0]._id, { headers: { Accept: "application/json" } } )
         .then(res => { return res.data ; });
     let data = {"_id": infos[0]._id,
         "tickets":infos[0].tickets,

@@ -33,6 +33,8 @@
     <string-array name="fraud_types">
         <item>reduced</item>
         <item>noticket</item>
+        <item>trajectory</item>
+        <item>falsified</item>
     </string-array>
     <string name="retry">retry</string>
     <string name="voir_mes_stats">See my stats</string>
