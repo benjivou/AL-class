@@ -84,7 +84,7 @@ class TicketAnalyserFragment : Fragment() {
                             ticket.destination = jsonTicket.get("destination").toString()
                             ticket.price = jsonTicket.get("price").toString().toFloat()
                             ticket.date = LocalDate.parse(jsonTicket.get("date").toString(), DateTimeFormatter.ofPattern("dd/MM/yyyy"))
-                            ticketError.error = "Error with ticket '$id'"
+                            ticketError.error = "Traject error with ticket '$id'\n"
                             view?.post {
                                 findNavController().navigate(TicketAnalyserFragmentDirections.actionTicketAnalyserFragmentToOptionalTestFragment(ticket, ticketError))
                             }
