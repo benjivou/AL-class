@@ -29,10 +29,11 @@
     <string name="fraude_en_cours_d_valuation">Fraude en cours d\'évaluation</string>
     <string name="retour_la_page_d_accueil">retour à la page d\'accueil</string>
     <string name="adresse">Adresse</string>
-
     <string-array name="fraud_types">
         <item>reduced</item>
         <item>noticket</item>
+        <item>falsified</item>
+        <item>trip</item>
     </string-array>
     <string name="retry">retry</string>
     <string name="voir_mes_stats">Voir mes stats</string>
