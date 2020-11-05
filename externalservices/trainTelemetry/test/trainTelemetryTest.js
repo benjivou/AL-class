@@ -52,3 +52,7 @@ describe('/GET train position',  () => {
         });
     })
 });
+
+setTimeout((function() {
+    return process.exit(0);
+}), 2000);

@@ -198,3 +198,6 @@ Then('the controller verify the payment {} and {} and {}', async function (resul
 
 });
 
+setTimeout((function() {
+    return process.exit(0);
+}), 2000);

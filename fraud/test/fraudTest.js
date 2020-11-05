@@ -24,3 +24,6 @@ describe('/GET frauds total for the controller',  () => {
     })
 });
 
+setTimeout((function() {
+    return process.exit(0);
+}), 2000);

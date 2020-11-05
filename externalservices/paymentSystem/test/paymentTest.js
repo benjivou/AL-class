@@ -26,3 +26,6 @@ describe('/POST to bank', () => {
 
 });
 
+setTimeout((function() {
+    return process.exit(0);
+}), 2000);

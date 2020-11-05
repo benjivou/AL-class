@@ -25,3 +25,6 @@ describe('/GET getAllTicket',  () => {
     })
 });
 
+setTimeout((function() {
+    return process.exit(0);
+}), 2000);
