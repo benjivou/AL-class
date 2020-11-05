@@ -28,8 +28,8 @@ class ConnectionIssuesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentConnectionIssuesBinding.bind(view)
         binding!!.connectionIssuesTextView.text = args.networkIssue
-        binding!!.retryConnectionButton.setOnClickListener {
-            findNavController().navigate(ConnectionIssuesFragmentDirections.actionConnectionIssuesFragmentToTicketAnalyserFragment(args.ticketNumber))
+        binding!!.returnHomeBtn.setOnClickListener {
+            findNavController().navigate(ConnectionIssuesFragmentDirections.actionConnectionIssuesFragmentToHomepageFragment())
         }
 
     }

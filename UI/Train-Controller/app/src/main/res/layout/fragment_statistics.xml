@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/relativeLayoutStatistics"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="100dp">
+
+        <TextView
+            android:id="@+id/nbOfControlledTicketsText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/nombre_de_tickets_controll_s"
+            android:layout_marginStart="30dp"/>
+
+        <TextView
+            android:id="@+id/nbOfControlledTickets"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/nbOfControlledTicketsText"
+            android:text="@string/none" />
+
+        <TextView
+            android:id="@+id/nbOfFraudsText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/nombre_de_fraudes_d_clar_es"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_below="@id/nbOfControlledTicketsText"/>
+
+        <TextView
+            android:id="@+id/nbOfFrauds"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/nbOfFraudsText"
+            android:layout_below="@id/nbOfControlledTickets"
+            android:text="@string/none" />
+
+        <Button
+            android:id="@+id/returnHomeButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:layout_marginStart="100dp"
+            android:layout_below="@+id/nbOfFraudsText"
+            android:text="@string/ok"/>
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -46,7 +46,7 @@ class ScanQrFragment : Fragment() {
     }
 
     private fun initialiseDetectorsAndSources() {
-        Toast.makeText(requireContext(), "Barcode scanner started", Toast.LENGTH_SHORT).show()
+        //Toast.makeText(requireContext(), "Barcode scanner started", Toast.LENGTH_SHORT).show()
         barcodeDetector = BarcodeDetector.Builder(requireContext())
             .setBarcodeFormats(Barcode.ALL_FORMATS)
             .build()
@@ -90,11 +90,11 @@ class ScanQrFragment : Fragment() {
         })
         barcodeDetector!!.setProcessor(object : Detector.Processor<Barcode> {
             override fun release() {
-                Toast.makeText(
+                /*Toast.makeText(
                     context,
                     "To prevent memory leaks barcode scanner has been stopped",
                     Toast.LENGTH_SHORT
-                ).show()
+                ).show()*/
             }
 
             override fun receiveDetections(detections: Detections<Barcode>) {

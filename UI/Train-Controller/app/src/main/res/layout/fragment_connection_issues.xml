@@ -16,11 +16,11 @@
             android:id="@+id/connection_issues_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/retryConnectionButton"
+            android:layout_above="@+id/returnHomeBtn"
             android:layout_marginBottom="40dp"/>
         <Button
-            android:id="@+id/retryConnectionButton"
-            android:text="@string/retry"
+            android:id="@+id/returnHomeBtn"
+            android:text="@string/return_homepage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </RelativeLayout>

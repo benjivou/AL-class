@@ -35,4 +35,12 @@
         <item>noticket</item>
     </string-array>
     <string name="retry">retry</string>
+    <string name="voir_mes_stats">Voir mes stats</string>
+    <string name="cr_er_une_fraude">Créer une fraude</string>
+    <string name="nombre_de_tickets_controll_s">Nombre de tickets controllés:</string>
+    <string name="nombre_de_fraudes_d_clar_es">Nombre de fraudes déclarées:</string>
+    <string name="return_homepage">return Homepage</string>
+    <string name="none">NONE</string>
+    <string name="stats_are_loading">Stats are loading</string>
+    <string name="ok">Ok</string>
 </resources>

@@ -42,7 +42,7 @@ class TicketAnalyserFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentTicketAnalyserBinding.bind(view)
         url = getString(R.string.NODE_IP_ADDRESS)
-        this.getTicketInfos(args.ticketNumber, "controller_id_1")
+        this.getTicketInfos(args.ticketNumber, "ab3678293002")
     }
 
     override fun onDestroyView() {
@@ -112,7 +112,7 @@ class TicketAnalyserFragment : Fragment() {
                 override fun onError(error: ANError) {
                     var txt = "Network error : $error\nAre you connected to the train Wifi ?"
                     view?.post {
-                        findNavController().navigate(TicketAnalyserFragmentDirections.actionTicketAnalyserFragmentToConnectionIssuesFragment(txt, id))
+                        findNavController().navigate(TicketAnalyserFragmentDirections.actionTicketAnalyserFragmentToConnectionIssuesFragment(txt))
                     }
                 }
             })

@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_homePage_to_manuallFraudFormulaire"
             app:destination="@id/manuallFraudFormulaire" />
+        <action
+            android:id="@+id/action_homePage_to_loadingStats"
+            app:destination="@id/loadingStats"/>
     </fragment>
     <fragment
         android:id="@+id/scanQr"
@@ -139,15 +142,9 @@
         <argument
             android:name="networkIssue"
             app:argType="string" />
-        <argument
-            android:name="ticketNumber"
-            app:argType="string" />
         <action
             android:id="@+id/action_connectionIssuesFragment_to_homepageFragment"
             app:destination="@id/homePage" />
-        <action
-            android:id="@+id/action_connectionIssuesFragment_to_ticketAnalyserFragment"
-            app:destination="@id/ticketAnalyserFragment" />
     </fragment>
     <fragment
         android:id="@+id/cashPaiementFragment"
@@ -184,6 +181,34 @@
         <action
             android:id="@+id/action_cardPaiementFragment_to_fraudCheckingScreen"
             app:destination="@id/fraudCheckingScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/stats"
+        android:name="com.example.myapplication.ui.fragment.StatisticsFragment"
+        android:label="fragment_statistics"
+        tools:layout="@layout/fragment_statistics">
+        <action
+            android:id="@+id/action_stats_to_homePage"
+            app:destination="@id/homePage" />
+        <argument
+            android:name="stats"
+            app:argType="com.example.myapplication.data.models.Statistics"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/loadingStats"
+        android:name="com.example.myapplication.ui.fragment.LoadingStatsFragment"
+        android:label="fragment_loading_stats"
+        tools:layout="@layout/fragment_loading_stats">
+        <action
+            android:id="@+id/action_loadingStats_to_stats"
+            app:destination="@id/stats" />
+        <action
+            android:id="@+id/action_loadingStats_to_connectionIssuesFragment"
+            app:destination="@+id/fragment_connection_issues"/>
+        <argument
+            android:name="idController"
+            app:argType="string" />
     </fragment>
 
 </navigation>
