@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({
 /******************send request to train telementry to get the stops of the current trip******************/
 async function getStops(tripId){
     let stops = undefined;
-    const url = "http://localhost:3005/train/stops/" +trainId+"/"+ tripId ;
+    const url = "http://traintelemetryservice:3005/train/stops/" +trainId+"/"+ tripId ;
     await axios.get(url, { headers: { Accept: "application/json" } })
         .then(res => {
             stops = res.data;
@@ -24,7 +24,7 @@ async function getStops(tripId){
 
 /******************send request to ticket booking to get all the tickets by its trip******************/
 async function getTickets(tripId){
-    const url = "http://localhost:3004/tickets/"+tripId ;
+    const url = "http://ticketbookingservice:3004/tickets/"+tripId ;
     let tickets = undefined ;
     await axios.get(url, { headers: { Accept: "application/json" } } )
         .then(res => {
@@ -55,13 +55,13 @@ async function saveData(tripId) {
 /******************Send last trip's data to stats service ******************/
 async function sendInternalDataToStats(){
     let infos = await mem.find();
-    let frauds = await axios.get("http://localhost:3006/frauds", { headers: { Accept: "application/json" } } )
+    let frauds = await axios.get("http://fraudservice:3006/frauds", { headers: { Accept: "application/json" } } )
         .then(res => { return res.data ; });
     let data = {"_id": infos[0]._id,
         "tickets":infos[0].tickets,
         "frauds": frauds
     };
-    await axios({method: 'post', url: 'http://localhost:3009', data: data, headers: { Accept: "application/json" }})
+    await axios({method: 'post', url: 'http://statisticsservice:3009', data: data, headers: { Accept: "application/json" }})
         .catch(function (response) {console.log(response); });
     return true;
 

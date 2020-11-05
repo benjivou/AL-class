@@ -28,7 +28,7 @@ async function sendDataToTelemetry(id,frauds){
     let data = {"id": id,
         "frauds": frauds,
     };
-    await axios({method: 'post', url: 'http://localhost:3010', data: data, headers: { Accept: "application/json" }})
+    await axios({method: 'post', url: 'http://fraudetelemetryservice:3010', data: data, headers: { Accept: "application/json" }})
         .catch(function (response) {console.log(response); });
     return true;
 }
@@ -60,6 +60,8 @@ app.get('/cash/:id', async (req,res)=>{
 app.post("/declare/fraud", async (req, res) => {
     console.log(req.body);
     let price1 = 0 ;
+    let currentStation =await axios.get("http://ticketcheckservice:3003/currentStop", { headers: { Accept: "application/json" } })
+        .then(res => {return res.data});
     switch (req.body.type) {
         case "reduced" : price1 = fraudType.REDUCED ;break;
         case "noticket" : price1 = fraudType.NOTICKET ; break;
@@ -71,6 +73,7 @@ app.post("/declare/fraud", async (req, res) => {
     const fraud = new Fraud({
         type : req.body.type,
         controller : req.body.controller,
+        currentStop : currentStation,
         time : a,
         amount : price1
     });
@@ -97,7 +100,7 @@ app.put("/pay/cash", async (req, res) => {
                 if (err) return res.status(500).json(false);
             });
         return await res.json({"paid":true});
-    }else {return await res.json({"paid": false,"msg":"Already paid !"})}
+    }else {return await res.json({"paid": false,"msg":"Already paid!"})}
 
 
 });
@@ -105,7 +108,7 @@ app.put("/pay/cash", async (req, res) => {
 /******************pay fraud online******************/
 app.put("/pay/cb", async (req, res) => {
     let fraud = await Fraud.findById( req.body.id);
-    let bankAuth =  await axios.post("http://localhost:3007/bank",req.body, { headers: { Accept: "application/json" } } );
+    let bankAuth =  await axios.post("http://paymentsystemservice:3007/bank",req.body, { headers: { Accept: "application/json" } } );
 
     if(!fraud.paid){
         if(bankAuth){

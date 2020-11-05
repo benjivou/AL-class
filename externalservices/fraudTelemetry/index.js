@@ -33,6 +33,9 @@ app.use(bodyParser.urlencoded({
 app.use(morgan('short'));
 
 app.post('/', async (req,res)=>{
+    if( FraudTelemetry.findById(req.body.id) === undefined){
+        
+    }
     let fraudTelemtry = new FraudTelemetry({
         _id: req.body.id ,
         frauds : req.body.frauds

@@ -35,7 +35,7 @@ async function verifyTicket(id){
     if(ticket !== undefined)
     {
         console.log("in");
-        const url2 = "http://localhost:3005/train/currentStop/" + trainId + "/" + tripId;
+        const url2 = "http://traintelemetryservice:3005/train/currentStop/" + trainId + "/" + tripId;
         await axios.get(url2, { headers: { Accept: "application/json" } })
             .then(res => {
                 console.log(stops.indexOf(ticket.destination) + "   " +  stops.indexOf(res.data.nextStop));
