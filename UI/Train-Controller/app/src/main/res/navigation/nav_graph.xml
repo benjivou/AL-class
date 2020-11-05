@@ -133,6 +133,12 @@
         <action
             android:id="@+id/action_optionalTestFragment_to_homePage"
             app:destination="@id/homePage" />
+        <action
+            android:id="@+id/action_optionalTestFragment_to_homePage2"
+            app:destination="@id/homePage" />
+        <action
+            android:id="@+id/action_optionalTestFragment_to_manuallFraudFormulaire"
+            app:destination="@id/manuallFraudFormulaire" />
     </fragment>
     <fragment
         android:id="@+id/fragment_connection_issues"

@@ -27,9 +27,8 @@ Feature: cucumber test
     Then the result are <result> and <type> and <paymentCheck>
 
     Examples:
-      | user     | pwd      | qr       | result  | type          | paymentCheck |
-      | julien   | julien   | rf37919 | false   | ticket unfound | true         |
-
+      | user     | pwd      | qr       | result  | type           | paymentCheck   |
+      | julien   | julien   | rf37919  | false   | ticket unfound | Already paid ! |
 
 
   Scenario Outline: the controller connect to the app and check valid ticket but not reduced and declare fraud ( cart payment )
@@ -38,7 +37,11 @@ Feature: cucumber test
     Then the controller verify the payment <result> and <type> and <paymentCheck>
 
     Examples:
-      | user     | pwd      | qr       | result  | type          | paymentCheck |
-      | julien   | julien   | rf37919 | false   | ticket unfound | true         |
+      | user     | pwd      | qr        | result  | type    | paymentCheck |
+      | julien   | julien   | rf37yeuz0 | true    | reduced | true         |
+
+
+
+
 
 

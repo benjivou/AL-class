@@ -18,8 +18,13 @@ chai.use(chaiHttp);
 
                  res.should.have.status(200);
                  res.body.token.should.equal("5f99ac7584b0c83808bb1a95")
-                done();
+                 done();
             });
+
         })
+
 });
+
+
+
 

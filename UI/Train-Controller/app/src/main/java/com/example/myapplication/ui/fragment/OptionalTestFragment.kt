@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentOptionalTestBinding
@@ -42,6 +43,15 @@ class OptionalTestFragment : Fragment() {
             toBeDisplayed += args.ticket.toString()
         }
         binding!!.infoTxt.text = toBeDisplayed
+
+        binding!!.validBtn.setOnClickListener {
+            findNavController().navigate(OptionalTestFragmentDirections.actionOptionalTestFragmentToHomePage())
+        }
+        binding!!.IssueCheckBtn.setOnClickListener {
+            findNavController().navigate(OptionalTestFragmentDirections.actionOptionalTestFragmentToManuallFraudFormulaire())
+        }
+
+
 
     }
 
