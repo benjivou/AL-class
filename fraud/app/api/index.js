@@ -8,7 +8,8 @@ const axios = require('axios');
 const fraudType = {
     REDUCED : 40,
     NOTICKET : 50,
-    FALSIFIED : 70
+    FALSIFIED : 70,
+    TRAJECTORY : 40
 };
 /******************get fraud's list******************/
 app.get('/frauds/:id', async (req,res)=>{
@@ -66,6 +67,7 @@ app.post("/declare/fraud", async (req, res) => {
         case "reduced" : price1 = fraudType.REDUCED ;break;
         case "noticket" : price1 = fraudType.NOTICKET ; break;
         case "falsified" : price1 = fraudType.FALSIFIED ; break;
+        case "trajectory" : price1 = fraudType.TRAJECTORY; break;
         default : price1 = 0 ;
     }
     let time = new Date();
