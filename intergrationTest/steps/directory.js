@@ -104,7 +104,7 @@ When('send GET request to ticket ckeck service', (done) => {
 
     let d = {
         type : "falsified",
-        controllerId : "5f99ac7584b0c83808bb1a95"
+        controller : "5f99ac7584b0c83808bb1a95"
     }
     chai.request('http://localhost:3006').post('/declare/fraud').send(d).end((err, res) => {
 
@@ -114,7 +114,7 @@ When('send GET request to ticket ckeck service', (done) => {
 
 
     let da = {
-        fraudId : fraudId
+        "id" : fraudId
     }
     chai.request('http://localhost:3006').put('/pay/cash').send(da).end((err, res) => {
 
@@ -167,7 +167,7 @@ When('send the request to ticket check to verify', (done) => {
 
     let d = {
         type : "falsified",
-        controllerId : "5f99ac7584b0c83808bb1a95"
+        controller : "5f99ac7584b0c83808bb1a95"
     }
     chai.request('http://localhost:3006').post('/declare/fraud').send(d).end((err, res) => {
 
@@ -177,7 +177,10 @@ When('send the request to ticket check to verify', (done) => {
 
 
     let da = {
-        fraudId : fraud
+        "id" : fraud,
+        "num" : "123456787899006465",
+        "dateExp": "17/06/2022",
+        "code":"500"
     }
     chai.request('http://localhost:3006').put('/pay/cb').send(da).end((err, res) => {
 
