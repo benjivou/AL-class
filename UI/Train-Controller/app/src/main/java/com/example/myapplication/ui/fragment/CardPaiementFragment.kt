@@ -57,7 +57,7 @@ class CardPaiementFragment : Fragment() {
 
         Log.d(TAG, "onViewCreated: launching request")
         AndroidNetworking
-            .put("http://${getString(R.string.NODE_IP_ADDRESS)}:3006/pay/cash")
+            .put("http://${getString(R.string.NODE_IP_ADDRESS)}:3006/pay/card")
             .addBodyParameter("id", args.fraud.fraudId)
             .addBodyParameter("code",  binding.editTextNumberPassword.text.toString())
             .addBodyParameter("dateExp",  binding.expirationDateTxt.text.toString())

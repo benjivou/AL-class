@@ -65,7 +65,7 @@ class FuturePaiementFragment : Fragment() {
 
         Log.d(TAG, "onViewCreated: launching request")
         AndroidNetworking
-            .put("http://${getString(R.string.NODE_IP_ADDRESS)}:3006/pay/cash")
+            .put("http://${getString(R.string.NODE_IP_ADDRESS)}:3006/pay/later")
             .addBodyParameter("id", args.fraud.fraudId)
             .addBodyParameter("name",  binding.nameFraudTxt .text.toString())
             .addBodyParameter("lastname",  binding.surnamFraudTxt2 .text.toString())
