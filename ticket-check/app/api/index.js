@@ -11,13 +11,18 @@ app.use(bodyParser.urlencoded({
 
 /******************check whether the ticket is valid or not by its id ******************/
 app.get("/:id", async (req, res) => {
-   await mem.updateOne({"tickets._id":req.params.id},{$set: {
-            'tickets.$.controller': req.query.controllerId
-        }}, function(err) {
-       if(err !== null) console.log(err)
-   });
-    const ticketCheck = await verifyTicket(req.params.id);
-        return res.status(200).json(ticketCheck);
+
+    let ticketCheck = await verifyTicket(req.params.id);
+    if(ticketCheck.ticket.controller !== "")
+        ticketCheck.controlled =  true;
+    else {
+        await mem.updateOne({"tickets._id":req.params.id},{$set: {
+                'tickets.$.controller': req.query.controllerId
+            }}, function(err) {
+            if(err !== null) console.log(err)
+        });
+    }
+    return res.status(200).json(ticketCheck);
 });
 
 
