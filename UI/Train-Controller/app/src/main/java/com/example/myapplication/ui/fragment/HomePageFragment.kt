@@ -1,32 +1,33 @@
-package com.example.myapplication
+package com.example.myapplication.ui.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.findNavController
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.myapplication.databinding.HomeFragmentBinding
-import com.example.myapplication.databinding.ScanQrFragmentBinding
 import kotlinx.android.synthetic.main.home_fragment.*
 
 
 /**
  * A simple [Fragment] subclass.
- * Use the [HomePage.newInstance] factory method to
+ * Use the [HomePageFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class HomePage : Fragment() {
+class HomePageFragment : Fragment() {
+
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? = HomeFragmentBinding.inflate(inflater,container,false).root
+    ): View? = HomeFragmentBinding.inflate(inflater, container, false).root
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        goScanQRbtn.setOnClickListener { view.findNavController().navigate(HomePageDirections.actionHomePageToScanQr()) }
+        goScanQRbtn.setOnClickListener { findNavController().navigate(HomePageFragmentDirections.actionHomePageToScanQr()) }
+        goToFraudeBtn.setOnClickListener { findNavController().navigate(HomePageFragmentDirections.actionHomePageToManuallFraudFormulaire()) }
 
     }
 

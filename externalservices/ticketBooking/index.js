@@ -38,7 +38,7 @@ const ticketBookingInfosService_router = require('./app/api/index.js');
 app.use('/',ticketBookingInfosService_router);
 
 
-// localhost:3003
+// localhost:3004
 app.listen(3004, () => {
     console.log(" Ticket booking service is up and listening on 3004...")
 });

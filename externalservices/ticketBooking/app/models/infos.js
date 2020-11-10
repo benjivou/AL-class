@@ -15,7 +15,7 @@ const TicketInfoSchema = mongoose.Schema({
         type: String ,
         required : true
     },
-    trainRef : {
+    tripId : {
         type : String,
         required : true
     },

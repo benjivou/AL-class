@@ -19,12 +19,28 @@ const FraudSchema = mongoose.Schema({
         type : Number,
         required : true
     },
-    paid : {
-        type : String,
+    paymentType : {
+        type: String,
         required : false
+    },
+    paid : {
+        type : Boolean,
+        default : false
     },
     amount : {
         type : Number,
+        default : 0
+    },
+    name : {
+        type : String,
+        required : false
+    },
+    lastName : {
+        type : String,
+        required : false
+    },
+    address : {
+        type : String,
         required : false
     }
 

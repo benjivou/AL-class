@@ -10,7 +10,6 @@ require('dotenv/config');
 const mem = require('./app/models/internal-mem');
 
 
-
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
@@ -18,11 +17,9 @@ app.use((req, res, next) => {
     next()
 });
 
-
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
-
 app.use(morgan('short'));
-
 
 mongoose.connect(process.env.DB_CONNECTION,
     {
@@ -31,63 +28,22 @@ mongoose.connect(process.env.DB_CONNECTION,
         useCreateIndex: true,
         useFindAndModify: false
     }).then(()=>{
-    console.log(`connection to database established`)});
-
-async function getStops(trainref){
-    let stops = undefined;
-    const url = "http://localhost:3005/train/stops/" + trainref ;
-    await axios.get(url, { headers: { Accept: "application/json" } })
-        .then(res => {
-            stops = res.data;
-        });
-    console.log(stops);
-    return stops;
-}
-
-async function getTickets(trainRef){
-    const url = "http://localhost:3004/tickets/"+trainRef ;
-    let tickets = undefined ;
-    await axios.get(url, { headers: { Accept: "application/json" } } )
-        .then(res => {
-            tickets = res.data;
-            console.log("Request : " + res.data);
-        });
-    console.log(tickets);
-    return tickets;
-}
-
-async function saveData() {
-    let trainId ="ABCDEFGH";
-    let tickets = await getTickets(trainId);
-    let stops  = await getStops(trainId);
-    console.log("Tickets : "+tickets); console.log("Stops : "+stops);
-    const data = new mem({
-        trainId : trainId,
-        tickets : tickets,
-        trainStops : stops
-    });
-    try{
-        const saved = await data.save();
-        console.log(saved);
-    }catch(err) {
-        console.log(err);
-    }
-
-
-}
-
-
+        console.log(`connection to database established`)});
 
 const ticketCheckService_router = require('./app/api/index.js');
-
 app.use('/ticketCheck',ticketCheckService_router);
 
-app.get('/start', ()=>{
-    saveData().then(r => console.log());
+const startService_router = require('./app/api/start.js');
+app.use('/start',startService_router);
+
+
+/******************get train's current Stop******************/
+app.get('/currentStop', async (req, res) =>{
+    let infos = await mem.find();
+   await res.status(200).json(infos[0].currentStop);
 });
 
 
-// localhost:3003
 app.listen(3003, () => {
     console.log(" Ticket ckeck component is up and listening on 3003...")
 });
