@@ -6,6 +6,7 @@
 
 **Future tasks planned :**
 - Add the statistics component 
+- add tests UI 
 
 **Color & Feedbacks of the week**
 - Green
