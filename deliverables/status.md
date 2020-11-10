@@ -1,4 +1,14 @@
 # Weekly  Report
+## Week 46
+**Done :**
+- Moc Presentation done 
+- Deliveriables
+
+**Future tasks planned :**
+- Add the statistics component 
+
+**Color & Feedbacks of the week**
+- Green
 
 ## Week 45
 **Done :**
