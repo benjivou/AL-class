@@ -3692,3 +3692,15 @@ externalservices/fraudTelemetry/node_modules/xdg-basedir/index.js
 externalservices/fraudTelemetry/node_modules/xdg-basedir/license
 externalservices/fraudTelemetry/node_modules/xdg-basedir/package.json
 externalservices/fraudTelemetry/node_modules/xdg-basedir/readme.md
+externalservices/authentification/node_modules/.bin/
+externalservices/authentification/node_modules/check-error/README.md
+externalservices/authentification/node_modules/
+externalservices/paymentSystem/node_modules/asynckit/README.md
+externalservices/paymentSystem/node_modules/asynckit/serialOrdered.js
+externalservices/paymentSystem/node_modules/asynckit/serial.js
+externalservices/paymentSystem/node_modules/asynckit/package.json
+externalservices/paymentSystem/node_modules/
+externalservices/ticketBooking/node_modules/
+externalservices/trainTelemetry/node_modules/
+fraud/node_modules/
+statistics/node_modules/
