@@ -1,4 +1,21 @@
 # Weekly  Report
+## Week 2 
+**Done : **
+ - Modification de l'architecture général de système pour répondre aux contraintes ajoutées : 
+   * L'ajout de Bus Kafka 
+   * Héberger les services à l'exterieur du train 
+   * Redécoupage de service 
+   * L'ajout de l'API Gateway ( load balancer intégré ) pour assurer la communication entre l'app mobile et les services 
+
+**Future tasks planned :**
+- Trouver un compromis pour palier au problème de réseau 
+- Développer d'avantage la justification de choix 
+- Valider avec le prof l'architecture finale 
+- Répartir les taches entre les membres de l'équipe et commencer à coder 
+
+**Color & Feedbacks of the week**
+- Green
+
 ## Week 46
 **Done :**
 - Moc Presentation done 
