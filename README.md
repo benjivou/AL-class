@@ -9,7 +9,7 @@ c'est une branche principale ou on fait les développement et les tests de tout 
 c'est une branche qui presente un atelier pour l'equipe frontend.
 
 ## Intégration continue 
- Le seveur jenkins est hebergé sur le cloud. Pour accéder au jenkins du projet :
+ Le serveur jenkins est hebergé sur le cloud. Pour accéder au jenkins du projet :
  
  lien pour Jenkins : "http://34.69.122.203:8080"
  
