@@ -1,10 +1,12 @@
 # Weekly  Report
 ## Week 3 
-**Done : **
+**Done :**
  - Validation d'architecture 
  - Rédaction du rapport 
  - Création de Fraud check pour assurer la cohérence de données ( on sanctionne pas un passager qui a acheté son billet récemment et qui n'a pas été récupéré par l'application du controleur )
  - La répartition des taches coté code 
+ 
+ 
 **Future tasks planned :*** 
 - Avoir un scénario qui marche avec kafka 
 - Créer les tests correspondants 
