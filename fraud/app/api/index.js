@@ -87,41 +87,56 @@ app.post("/declare/fraud", async (req, res) => {
 
 /******************pay fraud cash******************/
 app.put("/pay/cash", async (req, res) => {
-    let fraud = await Fraud.findById( req.body.id );
-    if(!fraud.paid){
-        Fraud.findByIdAndUpdate(req.body.id,{
-                paid : true,
-                paymentType: "cash"
-            }, {new: true},
-            (err, todo) => {
-                // Handle any possible database errors
-                if (err) return res.status(500).json(false);
-            });
-        return await res.json(true);
-    }else {return res.json("Already paid !")}
+    try{
+        let fraud = await Fraud.findById( req.body.id );
+        if(fraud == null) {
+            return res.json("Fraud is not declared yet")
+        }
+        if(!fraud.paid){
+            Fraud.findByIdAndUpdate(req.body.id,{
+                    paid : true,
+                    paymentType: "cash"
+                }, {new: true},
+                (err, todo) => {
+                    // Handle any possible database errors
+                    if (err) return res.status(500).json(false);
+                });
+            return await res.json(true);
+        }else {return res.json("Already paid !")}
+
+    }catch (e) {
+        res.json("Error")
+    }
 
 
 });
 
 /******************pay fraud online******************/
 app.put("/pay/cb", async (req, res) => {
-    let fraud = await Fraud.findById( req.body.id);
-    let bankAuth =  await axios.post("http://localhost:3007/bank",req.body, { headers: { Accept: "application/json" } } );
-
-    if(!fraud.paid){
-        if(bankAuth){
-        Fraud.findByIdAndUpdate(req.body.id,{
-                paid : true,
-                paymentType : "cb"
-            }, {new: true},
-            (err, todo) => {
-                if (err) return res.status(500).send(err);
-            });
-        return await res.json(true);
+    try {
+        let fraud = await Fraud.findById( req.body.id);
+        if(fraud == null) {
+            return res.json("Fraud is not declared yet")
         }
-        else  return await res.json(false);
+        let bankAuth =  await axios.post("http://localhost:3007/bank",req.body, { headers: { Accept: "application/json" } } );
+        if(!fraud.paid){
+            if(bankAuth){
+                Fraud.findByIdAndUpdate(req.body.id,{
+                        paid : true,
+                        paymentType : "cb"
+                    }, {new: true},
+                    (err, todo) => {
+                        if (err) return res.status(500).send(err);
+                    });
+                return await res.json(true);
+            }
+            else  return await res.json(false);
+        }
+        else {return res.json("Already paid !")}
+    }catch (e) {
+        return res.json("Error")
     }
-    else {return res.json("Already paid !")}
+
 
 
 
@@ -129,23 +144,31 @@ app.put("/pay/cb", async (req, res) => {
 
 /******************pay fraud later******************/
 app.put("/pay/later", async (req, res) => {
-    let fraud = await Fraud.findById(req.body.id);
-    let initialPrice = fraud.amount;
-    if(!fraud.paid){
-        Fraud.findByIdAndUpdate(req.body.id,{
-                paymentType : "later",
-                paid : true,
-                amount: initialPrice*2,
-                name : req.body.name,
-                lastName: req.body.lastName,
-                address : req.body.address
-            }, {new: true},
-            (err, todo) => {
-                // Handle any possible database errors
-                if (err) return res.status(500).send(err);
-                return res.send(todo);
-            });
-    }else {return res.json("Already paid !")}
+    try{
+        let fraud = await Fraud.findById(req.body.id);
+        if(fraud == null) {
+            return res.json("Fraud is not declared yet")
+        }
+        let initialPrice = fraud.amount;
+        if(!fraud.paid){
+            Fraud.findByIdAndUpdate(req.body.id,{
+                    paymentType : "later",
+                    paid : true,
+                    amount: initialPrice*2,
+                    name : req.body.name,
+                    lastName: req.body.lastName,
+                    address : req.body.address
+                }, {new: true},
+                (err, todo) => {
+                    // Handle any possible database errors
+                    if (err) return res.status(500).send(err);
+                    return res.send(todo);
+                });
+        }else {return res.json("Already paid !")}
+    }catch (e) {
+        return res.json("Error")
+    }
+
 });
 
 
