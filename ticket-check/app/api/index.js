@@ -13,14 +13,16 @@ app.use(bodyParser.urlencoded({
 app.get("/:id", async (req, res) => {
 
     let ticketCheck = await verifyTicket(req.params.id);
-    if(ticketCheck.ticket.controller !== "")
-        ticketCheck.controlled =  true;
-    else {
-        await mem.updateOne({"tickets._id":req.params.id},{$set: {
-                'tickets.$.controller': req.query.controllerId
-            }}, function(err) {
-            if(err !== null) console.log(err)
-        });
+    if(ticketCheck.type !== "ticket unfound") {
+        if(ticketCheck.ticket.controller !== "")
+            ticketCheck.controlled =  true;
+        else {
+            await mem.updateOne({"tickets._id":req.params.id},{$set: {
+                    'tickets.$.controller': req.query.controllerId
+                }}, function(err) {
+                if(err !== null) console.log(err)
+            });
+        }
     }
     return res.status(200).json(ticketCheck);
 });
