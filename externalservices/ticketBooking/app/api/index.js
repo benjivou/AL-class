@@ -35,7 +35,7 @@ app.post("/",async (req,res) => {
         _id : req.body.id ,
         passengerName : req.body.passengerName ,
         type : req.body.type ,
-        trainRef: req.body.trainRef,
+        tripId: req.body.tripId,
         departure : req.body.departure,
         destination: req.body.destination,
         price : req.body.price,
@@ -57,7 +57,7 @@ async function pushTicketOnKafka(ticket){
     await producer.send({
         topic: 'tickets',
         messages: [
-            {value: 'test'}
+            {key: ticket.tripId,value:JSON.stringify( ticket)}
         ],
     });
     console.log('sended');
