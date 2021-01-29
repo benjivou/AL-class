@@ -7,6 +7,17 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
+
+const { Kafka } = require('kafkajs');
+
+const kafka = new Kafka({
+    clientId: 'trainTelemetry',
+    brokers: ['kafka:9092']
+})
+
+const producer = kafka.producer();
+
+
 /******************get Train infos by its id and tripId ******************/
 app.get("/:id/:tripId", async (req, res) => {
     try{
@@ -66,12 +77,35 @@ app.post("/:id",async (req,res) => {
 });
 
 app.put("/currentStop/:id", async (req,res) => {
-    await Train.updateOne({"_id":req.params.id, "trips._id":req.body._id},{$set: {
-            'trips.$.currentStop':req.body.currentStop,
-            'trips.$.nextStop': req.body.nextStop
-        }}, function(err) {console.log(err)});
-    await res.json(true);
+    try{
+        await Train.updateOne({"_id":req.params.id, "trips._id":req.body._id},{$set: {
+                'trips.$.currentStop':req.body.currentStop,
+                'trips.$.nextStop': req.body.nextStop
+            }}, function(err) {console.log(err)});
+    }catch (e) {
+        console.log(e);
+        return res.json("connection to db is impossible or trip asked is not found")
+    }
+
+    try{
+        await pushCurrentNextStationOnKafka(req.body);
+        return res.json({ok : 'ok'});
+    }catch(err){
+        return res.json({message: err});
+    }
 });
+
+async function pushCurrentNextStationOnKafka(trainStations){
+    await producer.connect();
+    console.log('train infos producer connected');
+    await producer.send({
+        topic: 'tripInfos',
+        messages: [
+            {key: trainStations._id ,value:JSON.stringify(trainStations)}
+        ],
+    });
+    console.log('train infos sent');
+}
 
 
 
