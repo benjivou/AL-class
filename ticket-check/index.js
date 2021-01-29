@@ -9,34 +9,6 @@ const bodyParser = require('body-parser');
 require('dotenv/config');
 const mem = require('./app/models/internal-mem');
 
-const { Kafka } = require('kafkajs');
-
-const kafka = new Kafka({
-    clientId: 'ticketCheck',
-    brokers: ['kafka:9092']
-});
-
-const consumer = kafka.consumer({ groupId: 'ticketCheckConsumer'});
-
-
-const run = async () => {
-
-    await consumer.connect();
-    await consumer.subscribe({ topic: 'tickets', fromBeginning: true });
-
-
-    await consumer.run({
-        eachMessage: async ({ topic, partition, message }) => {
-
-            if(topic === 'tickets'){
-                console.log('HEEEEEEEEEEEEEERE');
-            }
-        },
-    })
-};
-run().catch(console.error);
-
-
 
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");

@@ -11,21 +11,16 @@ app.use(bodyParser.urlencoded({
 
 /******************check whether the ticket is valid or not by its id ******************/
 app.get("/:id", async (req, res) => {
-
-    let ticketCheck = await verifyTicket(req.params.id);
-    if(ticketCheck.type !== "ticket unfound") {
-        if(ticketCheck.ticket.controller !== "")
-            ticketCheck.controlled =  true;
-        else {
-            await mem.updateOne({"tickets._id":req.params.id},{$set: {
-                    'tickets.$.controller': req.query.controllerId
-                }}, function(err) {
-                if(err !== null) console.log(err)
-            });
-        }
-    }
+    /*Here we will add a publish into the kafka event to say that the ticket has been controlled by .. */
+    await mem.updateOne({"tickets._id":req.params.id},{$set: {
+            'tickets.$.controller': req.query.controllerId
+        }}, function(err) {
+        if(err !== null) console.log(err)
+    });
+    const ticketCheck = await verifyTicket(req.params.id);
     return res.status(200).json(ticketCheck);
 });
+
 
 
 
@@ -35,33 +30,29 @@ async function verifyTicket(id){
     let stops= undefined ;
     let infos = await mem.find() ;
     ticket = await infos[0].tickets.find( element => element._id === id) ;
-    let trainId = await infos[0].trainId ;
-    let tripId = await infos[0]._id;
     stops= infos[0].trainStops ;
+    let currentStop = infos[0].currentStop;
+    let nextStop = infos[0].nextStop;
     let result  = false ;
     if(ticket !== undefined)
     {
         console.log("in");
-        const url2 = "http://traintelemetryservice:3005/train/currentStop/" + trainId + "/" + tripId;
-        await axios.get(url2, { headers: { Accept: "application/json" } })
-            .then(res => {
-                console.log(stops.indexOf(ticket.destination) + "   " +  stops.indexOf(res.data.nextStop));
-                console.log(stops);
-                mem.findByIdAndUpdate(infos[0]._id,{"currentStop":res.data.currentStop}, function(err) {console.log(err)});
-                if(stops.indexOf(res.data.currentStop) >= stops.indexOf(ticket.departure)){
-                    if(stops.indexOf(ticket.destination) >= stops.indexOf(res.data.nextStop)){
-                        console.log("ind");
-                        result = true;
-                        console.log(result);
-                    }else{
-                        console.log("ind False ");
-                        result = false;
-                    }
-                }else {
-                    console.log("ind False 2");
-                    result = false;
+        if(stops.indexOf(currentStop) >= stops.indexOf(ticket.departure)){
+            if(stops.indexOf(ticket.destination) >= stops.indexOf(nextStop)){
+                if (stops.indexOf(ticket.destination) > stops.indexOf(ticket.departure)){
+                    console.log("ind");
+                    result = true;
+                    console.log(result);
                 }
-            });
+            }else{
+                console.log("ind False ");
+                result = false;
+            }
+        }else {
+            console.log("ind False 2");
+            result = false;
+        }
+
     }
     else {
         result = false;

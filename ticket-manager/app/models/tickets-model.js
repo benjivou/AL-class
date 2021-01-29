@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const TrainInternalMemSchema = mongoose.Schema({
+const currentTripInfos = mongoose.Schema({
     trainId:{
         type : String,
         required : true
@@ -66,4 +66,4 @@ const TrainInternalMemSchema = mongoose.Schema({
 
 });
 
-module.exports = mongoose.model('TrainInternalDB', TrainInternalMemSchema);
+module.exports = mongoose.model('TrainInternalDB', currentTripInfos);
