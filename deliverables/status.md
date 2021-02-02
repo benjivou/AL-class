@@ -1,4 +1,14 @@
 # Weekly  Report
+## Week 4 
+**Done :** 
+ - Intégration de bus Kafka dans le scénario du controle ticket 
+ - Sépartion du sevice ticket control en deux composants ticket-check et ticket manager ( ticket check est le composant responsable du la lecture de données pour décider à la fin si un ticket est valide ou pas et ticket manager est le composant qui est toujours à l'écoute du kafka et qui est responsable d'écrire ces données dans la bd ) 
+ - Réalisation des tests massives pour décider le passage à l'échelle nécessaire pour nos composants 
+ - Précision de tous les topics kafka des différents scénarios de notre application
+**Future tasks :** 
+- Intégration de bus kafka dans le scério de déclaration de Fraud 
+- Trouver le sytème de cache adéquat pour résoudre les problèmes éventuels de réseau 
+
 ## Week 3 
 **Done :**
  - Validation d'architecture 
