@@ -57,22 +57,43 @@ const run = async () => {
 
     await consumer.connect();
     await consumer.subscribe({ topic: 'tickets', fromBeginning: true });
-    await consumer.subscribe({ topic: 'tripInfos', fromBeginning: true });
+    await consumer.subscribe({ topic: 'nextStation', fromBeginning: true });
+    await consumer.subscribe({ topic: 'startTrip', fromBeginning: true });
+    await consumer.subscribe({ topic: 'endTrip', fromBeginning: true });
     await consumer.run({
         eachMessage: async ({ topic, partition, message }) => {
-
-            if( (topic==='tickets') && (message.key.toString() === 'Ab34735')){
+            let found = undefined ;
+            if (message.key !== undefined){
+                found = mem.find({_id : message.key.toString() });
+            }
+            if( (topic==='tickets') && (found !== undefined)){
                 let ticket = JSON.parse(message.value.toString());
-                let modified = await mem.findOneAndUpdate({_id: ticket.tripId},  { $push: { tickets: ticket}});
-                console.log(modified);
-                console.log(JSON.parse(message.value.toString()));
-                console.log('HEEEEEEEEEEEEEERE');
-            }else if((topic==='tripInfos') && (message.key.toString() === 'Ab34735')){
+                console.log(ticket);
+                console.log(ticket.length);
+                await mem.findOneAndUpdate({_id: message.key.toString()},  { $push: { tickets: ticket}},function(err){
+                    if(err){
+                        console.log(err);
+                    }});
+            }else if((topic==='nextStation') && (found !== undefined)){
                 let stations = JSON.parse(message.value.toString());
-                let modified = await mem.findOneAndUpdate({_id: stations._id},  { $set: { currentStop: stations.currentStop, nextStop: stations.nextStop}});
-                console.log(modified);
-                console.log(JSON.parse(message.value.toString()));
-                console.log('HEEEEEEEEEEEEEERE');
+                await mem.findOneAndUpdate({_id: stations._id},  { $set: { currentStop: stations.currentStop, nextStop: stations.nextStop}});
+            }else if(topic==='startTrip') {
+                let dd = JSON.parse(message.value.toString());
+                let data = new mem(dd);
+                try{
+                    const saved = await data.save();
+                    console.log(saved);
+                }catch(err) {
+                    console.log(err);
+                }
+            }else if((topic === 'endTrip')&&(found!==undefined)){
+                try{
+                    mem.remove({_id : message.key.toString()},function(err) {
+                        if (err) {
+                            console.log(err);
+                        }
+                    });
+                }catch(e){console.log(e);}
             }
         },
     })

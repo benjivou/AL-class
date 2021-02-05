@@ -8,9 +8,31 @@ const { Kafka } = require('kafkajs');
 const kafka = new Kafka({
     clientId: 'ticketBooking',
     brokers: ['kafka:9092']
-})
+});
+
+
 
 const producer = kafka.producer();
+const consumer = kafka.consumer({ groupId: 'ticketBooking'});
+
+const run = async () => {
+    console.log("I am here");
+    await consumer.connect();
+    await consumer.subscribe({topic: 'startTrip', fromBeginning: true});
+    await consumer.run({
+        eachMessage: async ({topic, partition, message}) => {
+            try{
+                const tickets = await Ticket.find({'tripId': message.key.toString()} );
+                await pushTicketOnKafka(message.key.toString(),tickets)
+            }catch(err) {
+                console.log(err)
+            }
+        }
+    })
+}
+
+run().catch(console.error);
+
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -22,7 +44,7 @@ app.use(bodyParser.urlencoded({
 app.get("/tickets/:tripId", async (req, res) => {
     try{
         const tickets = await Ticket.find({'tripId': req.params.tripId} );
-        await res.json(tickets);
+        await res.json(req.params.tripId,tickets);
     }catch(err) {
         await res.json({message: err});
     }
@@ -42,22 +64,22 @@ app.post("/",async (req,res) => {
         date :  req.body.date
     });
     try{
-        //const savedTicket = await ticket.save();
-        await pushTicketOnKafka(ticket);
-        //await res.json(savedTicket);
+        const savedTicket = await ticket.save();
+        await pushTicketOnKafka(req.body.tripId,ticket);
+        await res.json(savedTicket);
         await res.json({ok : 'ok'});
     }catch(err) {
         await res.json({message: err});
     }
 });
 
-async function pushTicketOnKafka(ticket){
+async function pushTicketOnKafka(tripId,ticket){
     await producer.connect();
     console.log('connected');
     await producer.send({
         topic: 'tickets',
         messages: [
-            {key: ticket.tripId,value:JSON.stringify( ticket)}
+            {key: tripId,value:JSON.stringify( ticket)}
         ],
     });
     console.log('sended');

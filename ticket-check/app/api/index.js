@@ -12,12 +12,12 @@ app.use(bodyParser.urlencoded({
 /******************check whether the ticket is valid or not by its id ******************/
 app.get("/:id", async (req, res) => {
     /*Here we will add a publish into the kafka event to say that the ticket has been controlled by .. */
-    await mem.updateOne({"tickets._id":req.params.id},{$set: {
-            'tickets.$.controller': req.query.controllerId
+    await mem.updateOne({"_id": req.body.tripId,"tickets._id":req.params.id},{$set: {
+            'tickets.$.controller': req.body.controller
         }}, function(err) {
         if(err !== null) console.log(err)
     });
-    const ticketCheck = await verifyTicket(req.params.id);
+    const ticketCheck = await verifyTicket(req.params.id, req.body.tripId);
     return res.status(200).json(ticketCheck);
 });
 
@@ -25,14 +25,14 @@ app.get("/:id", async (req, res) => {
 
 
 /******************find ticket and check whether the infos in it are valid or not******************/
-async function verifyTicket(id){
+async function verifyTicket(id,tripId){
     let ticket = undefined ;
     let stops= undefined ;
-    let infos = await mem.find() ;
-    ticket = await infos[0].tickets.find( element => element._id === id) ;
-    stops= infos[0].trainStops ;
-    let currentStop = infos[0].currentStop;
-    let nextStop = infos[0].nextStop;
+    let infos = await mem.findOne({"_id": tripId}) ;
+    ticket = await infos.tickets.find( element => element._id === id) ;
+    stops= infos.trainStops ;
+    let currentStop = infos.currentStop;
+    let nextStop = infos.nextStop;
     let result  = false ;
     if(ticket !== undefined)
     {

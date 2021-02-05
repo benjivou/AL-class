@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const TicketInfoSchema = mongoose.Schema({
     _id:{
         type : String,
-        required : true
+        required : false
     },
     passengerName : {
         type : String ,
