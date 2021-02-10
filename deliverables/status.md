@@ -1,4 +1,14 @@
 # Weekly  Report
+
+## Week 5
+**Done :** 
+ - Intégration de bus Kafka dans le scénario des fraudes 
+ - Etude du volume de tickets à traiter / tests de charge pour valider notre architecture, et adapter le passage à l'échelle (pour l'instant pas implémenté)
+**Future tasks :** 
+- Intégrer Kafka dans les statistiques
+- Réaliser des tests d'intégration
+- Dimensionner le cache côté application du contrôleur
+
 ## Week 4 
 **Done :** 
  - Intégration de bus Kafka dans le scénario du controle ticket 
