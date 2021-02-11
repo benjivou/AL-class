@@ -7,6 +7,14 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 require('dotenv/config');
 const FraudTelemetry = require('./app/models/fraudTelemetry');
+const { Kafka } = require('kafkajs');
+
+const kafka = new Kafka({
+    clientId: 'fraudTelemetry',
+    brokers: ['kafka:9092']
+})
+
+const consumer = kafka.consumer({ groupId: 'fraudTelemetryGroupId'});
 
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
@@ -32,19 +40,33 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(morgan('short'));
 
-app.post('/', async (req,res)=>{
-    if( FraudTelemetry.findById(req.body.id) === undefined){
-        
-    }
-    let fraudTelemtry = new FraudTelemetry({
-        _id: req.body.id ,
-        frauds : req.body.frauds
-    });
 
-        let saved = fraudTelemtry.save();
-        await res.status(201).json(saved);
+const run = async () => {
 
-});
+    await consumer.connect();
+    console.log('connected');
+    await consumer.subscribe({ topic: 'declaredFrauds', fromBeginning: true });
+    console.log('subscribed');
+    await consumer.run({
+        eachMessage: async ({ topic, partition, message }) => {
+        console.log('message received');
+            if(topic==='declaredFrauds'){
+                console.log(JSON.parse(message.value.toString()));
+                //message contains the fraud to save
+                //Save fraud in DB
+                if(FraudTelemetry.findById(JSON.parse(message.value.toString())._id) === undefined){
+                    let fraudTelemtry = new FraudTelemetry({
+                        _id: JSON.parse(message.value.toString()).tripId,
+                        frauds : JSON.parse(message.value.toString())._id
+                    });
+                    fraudTelemtry.save();
+                }
+            }
+        },
+    })
+
+};
+run().catch(console.error);
 
 // localhost:3010
 app.listen(3010, () => {

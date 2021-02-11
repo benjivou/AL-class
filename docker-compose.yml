@@ -35,8 +35,8 @@ services:
     networks:
       - docker-kafka_blue-network
 
-  fraudservice:
-    build: ./fraud
+  fraudcontrollerservice:
+    build: ./fraud-controller
     ports:
       - "3006:3006"
     networks:

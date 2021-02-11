@@ -5,6 +5,15 @@ app.use(cors());
 const Fraud = require('../models/fraud');
 const axios = require('axios');
 
+const { Kafka } = require('kafkajs');
+
+const kafka = new Kafka({
+    clientId: 'fraudController',
+    brokers: ['kafka:9092']
+})
+
+const producer = kafka.producer();
+
 const fraudType = {
     REDUCED : 40,
     NOTICKET : 50,
@@ -68,15 +77,31 @@ app.post("/declare/fraud", async (req, res) => {
     }
     let time = new Date();
     let a = time.getHours();
+    console.log('tripId', req.body.tripId);
     const fraud = new Fraud({
         type : req.body.type,
         currentStop : req.body.currentStop ,
         controller : req.body.controller,
         time : a,
-        amount : price1
+        amount : price1,
+        tripId : req.body.tripId,
+        ticketId : req.body.ticketId
     });
+    console.log('FRAUD', fraud);
     try{
+        //No need to check the ticket if it has no ticketID (fraud without any tickets)
+        if(req.body.ticketId != null){
+            const response = await fraudCheck(fraud)
+            console.log('RESPONSE', response);
+            //There is no fraud
+            if(response.result){
+                await res.json({'message': 'No fraud'});
+                return;
+            }
+        }
+        //There is effectively a fraud
         fraud.save();
+        await pushFraudOnKafka(fraud);
     }catch (e) {
         await res.json({"message": e})
     }
@@ -84,6 +109,15 @@ app.post("/declare/fraud", async (req, res) => {
         "fraudId" : fraud._id,
         "fraudPrice" : price1});
 });
+
+async function fraudCheck(fraud){
+    let result = undefined;
+    await axios({method: 'post', url: 'http://ticketcheckservice:3003/ticketCheck', headers: { Accept: 'application/json' }, data: {tripId: fraud.tripId, ticketId: fraud.ticketId}})
+        .then(res => {
+            result = res.data;
+        });
+    return result;
+}
 
 /******************pay fraud cash******************/
 app.put("/pay/cash", async (req, res) => {
@@ -170,6 +204,18 @@ app.put("/pay/later", async (req, res) => {
     }
 
 });
+
+async function pushFraudOnKafka(fraud){
+    await producer.connect();
+    console.log('connected');
+    await producer.send({
+        topic: 'declaredFrauds',
+        messages: [
+            {key: 'fraud.tripId',value:JSON.stringify(fraud)}
+        ],
+    });
+    console.log('sended');
+}
 
 
 module.exports = app;

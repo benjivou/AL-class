@@ -17,49 +17,58 @@ app.get("/:id", async (req, res) => {
         }}, function(err) {
         if(err !== null) console.log(err)
     });
-    const ticketCheck = await verifyTicket(req.params.id);
+    const ticketCheck = await verifyTicket(req.params.id, undefined);
+    return res.status(200).json(ticketCheck);
+});
+
+app.post("/", async (req, res) => {
+    console.log(req.body);
+    const ticketCheck = await verifyTicket(req.body.ticketId, req.body.tripId);
     return res.status(200).json(ticketCheck);
 });
 
 
 
 
-/******************find ticket and check whether the infos in it are valid or not******************/
-async function verifyTicket(id){
+ /******************find ticket and check whether the infos in it are valid or not******************/
+async function verifyTicket(ticketId, tripId){
     let ticket = undefined ;
     let stops= undefined ;
-    let infos = await mem.find() ;
-    ticket = await infos[0].tickets.find( element => element._id === id) ;
-    stops= infos[0].trainStops ;
-    let currentStop = infos[0].currentStop;
-    let nextStop = infos[0].nextStop;
-    let result  = false ;
-    if(ticket !== undefined)
-    {
-        console.log("in");
-        if(stops.indexOf(currentStop) >= stops.indexOf(ticket.departure)){
-            if(stops.indexOf(ticket.destination) >= stops.indexOf(nextStop)){
-                if (stops.indexOf(ticket.destination) > stops.indexOf(ticket.departure)){
-                    console.log("ind");
-                    result = true;
-                    console.log(result);
+    let infos = (await mem.find({'_id' : tripId}))[0];
+    if(infos !== undefined){
+        ticket = await infos.tickets.find( element => element._id === ticketId) ;
+        stops= infos.trainStops ;
+        let currentStop = infos.currentStop;
+        let nextStop = infos.nextStop;
+        let result  = false ;
+        if(ticket !== undefined)
+        {
+            console.log("TICKET", ticket);
+            if(stops.indexOf(currentStop) >= stops.indexOf(ticket.departure)){
+                if(stops.indexOf(ticket.destination) >= stops.indexOf(nextStop)){
+                    if (stops.indexOf(ticket.destination) > stops.indexOf(ticket.departure)){
+                        console.log("ind");
+                        result = true;
+                        console.log(result);
+                    }
+                }else{
+                    console.log("ind False ");
+                    result = false;
                 }
-            }else{
-                console.log("ind False ");
+            }else {
+                console.log("ind False 2");
                 result = false;
             }
-        }else {
-            console.log("ind False 2");
-            result = false;
+
         }
-
+        else {
+            result = false;
+            return {"result" : result, "type":"ticket unfound"};
+        }
+        return {"result" : result, "type" : ticket.type, "ticket" : ticket };
+    } else {
+        return {"result": false, "type":"trip not found"}
     }
-    else {
-        result = false;
-        return {"result" : result, "type":"ticket unfound"};
-    }
-    return {"result" : result, "type" : ticket.type, "ticket" : ticket };
-
 
 }
 
