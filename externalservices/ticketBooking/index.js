@@ -7,9 +7,6 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 require('dotenv/config');
 
-
-
-
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
@@ -36,6 +33,7 @@ mongoose.connect(process.env.DB_CONNECTION,
 const ticketBookingInfosService_router = require('./app/api/index.js');
 
 app.use('/',ticketBookingInfosService_router);
+
 
 
 // localhost:3004

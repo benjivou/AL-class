@@ -12,12 +12,12 @@ app.use(bodyParser.urlencoded({
 /******************check whether the ticket is valid or not by its id ******************/
 app.get("/:id", async (req, res) => {
     /*Here we will add a publish into the kafka event to say that the ticket has been controlled by .. */
-    await mem.updateOne({"tickets._id":req.params.id},{$set: {
-            'tickets.$.controller': req.query.controllerId
+    await mem.updateOne({"_id": req.body.tripId,"tickets._id":req.params.id},{$set: {
+            'tickets.$.controller': req.body.controller
         }}, function(err) {
         if(err !== null) console.log(err)
     });
-    const ticketCheck = await verifyTicket(req.params.id, undefined);
+    const ticketCheck = await verifyTicket(req.params.id, req.body.tripId);
     return res.status(200).json(ticketCheck);
 });
 
