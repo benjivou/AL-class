@@ -1,7 +1,5 @@
 const mongoose = require('mongoose');
 
-
-
 const FraudSchema = mongoose.Schema({
     type : {
         type : String ,
@@ -42,8 +40,15 @@ const FraudSchema = mongoose.Schema({
     address : {
         type : String,
         required : false
+    },
+    tripId : {
+        type : String,
+        required : true
+    },
+    ticketId : {
+        type : String,
+        required : true
     }
-
 });
 
 module.exports = mongoose.model('Fraud', FraudSchema);
