@@ -22,8 +22,6 @@ app.get("/:id", async (req, res) => {
 });
 
 
-
-
 /******************find ticket and check whether the infos in it are valid or not******************/
 async function verifyTicket(id,tripId){
     let ticket = undefined ;
