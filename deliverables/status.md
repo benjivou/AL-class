@@ -1,5 +1,18 @@
 # Weekly  Report
 
+## Week 6
+**Done :** 
+ - Dimensionner le cache côté application du contrôleur
+ - Load balancer
+ - Correction de bugs avec Kafka
+ - Refactoring des BD par composant
+ - Subscribe de FraudManager au changement des stations
+ - composant Fraud Check intégré
+**Future tasks :** 
+- Intégrer Kafka dans les statistiques
+- Réaliser des tests d'intégration
+
+
 ## Week 5
 **Done :** 
  - Intégration de bus Kafka dans le scénario des fraudes 
