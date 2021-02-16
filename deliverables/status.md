@@ -8,6 +8,7 @@
  - Refactoring des BD par composant
  - Subscribe de FraudManager au changement des stations
  - composant Fraud Check intégré
+ 
 **Future tasks :** 
 - Intégrer Kafka dans les statistiques
 - Réaliser des tests d'intégration
