@@ -67,7 +67,6 @@ app.post("/",async (req,res) => {
         const savedTicket = await ticket.save();
         await pushTicketOnKafka(req.body.tripId,ticket);
         await res.json(savedTicket);
-        await res.json({ok : 'ok'});
     }catch(err) {
         await res.json({message: err});
     }
@@ -77,7 +76,7 @@ async function pushTicketOnKafka(tripId,ticket){
     await producer.connect();
     console.log('connected');
     await producer.send({
-        topic: 'tickets',
+        topic: tripId,
         messages: [
             {key: tripId,value:JSON.stringify( ticket)}
         ],
