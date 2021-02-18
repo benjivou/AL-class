@@ -33,16 +33,6 @@ mongoose.connect(process.env.DB_CONNECTION,
 const ticketCheckService_router = require('./app/api/index.js');
 app.use('/ticketCheck',ticketCheckService_router);
 
-const startService_router = require('./app/api/start.js');
-app.use('/start',startService_router);
-
-
-/******************get train's current Stop******************/
-app.get('/currentStop', async (req, res) =>{
-    let infos = await mem.find();
-   await res.status(200).json(infos[0].currentStop);
-});
-
 
 app.listen(3003, () => {
     console.log(" Ticket ckeck component is up and listening on 3003...")

@@ -99,31 +99,6 @@ async function pushFinishedTripOnKafka(tripId){
 
 
 
-
-/******************get Train current Stop by its id and tripId ******************/
-app.get("/currentStop/:trainId/:tripId", async (req, res) => {
-    try{
-        const train = await Train.findOne({ "trips._id": req.params.tripId});
-        let trip = train.trips.find(element => element._id === req.params.tripId);
-        await res.json({
-            currentStop :trip.currentStop,
-            nextStop : trip.nextStop
-        });
-    }catch(err) {
-        await res.json({message: err});
-    }
-});
-
-/******************get Train's list of stops by its id and tripId ******************/
-app.get("/stops/:trainId/:tripId", async (req, res) => {
-    try{
-        const train = await Train.findOne({ "trips._id": req.params.tripId});
-        await res.json(train.trips.find(element => element._id === req.params.tripId).stops);
-    }catch(err) {
-        await res.json({message: err});
-    }
-});
-
 /******************Post new Train infos or simply a new planned trip ******************/
 app.post("/:id",async (req,res) => {
     try {
