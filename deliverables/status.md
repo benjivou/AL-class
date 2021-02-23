@@ -1,5 +1,16 @@
 # Weekly  Report
 
+## Week 7
+**Done :** 
+- Intégrer Kafka dans les statistiques
+- Réaliser des tests d'intégration
+- Mettre en place l'étude du cache 
+- Commencer le rapport 
+ 
+**Future tasks :** 
+- Préparer la présentation 
+- Terminer le rapport
+
 ## Week 6
 **Done :** 
  - Dimensionner le cache côté application du contrôleur
