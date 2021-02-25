@@ -76,12 +76,12 @@ async function pushTicketOnKafka(tripId,ticket){
     await producer.connect();
     console.log('connected');
     await producer.send({
-        topic: tripId,
+        topic: 'tickets',
         messages: [
             {key: tripId,value:JSON.stringify( ticket)}
         ],
     });
-    console.log('sended');
+    console.log('sent');
 }
 
 

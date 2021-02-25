@@ -88,4 +88,4 @@ const StatisticsSchema = mongoose.Schema({
        }]
 });
 
-module.exports = mongoose.model('Statistics', StatisticsSchema);
+module.exports = mongoose.model('Statistic', StatisticsSchema);

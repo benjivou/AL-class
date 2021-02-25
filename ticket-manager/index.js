@@ -67,6 +67,7 @@ const run = async () => {
                 found = mem.find({_id : message.key.toString() });
             }
             if( (topic==='tickets') && (found !== undefined)){
+                console.log('tickets-received');
                 let ticket = JSON.parse(message.value.toString());
                 console.log(ticket);
                 console.log(ticket.length);
@@ -95,14 +96,6 @@ const run = async () => {
                         }
                     });
                 }catch(e){console.log(e);}
-            }else if (found !== undefined){
-                let ticket = JSON.parse(message.value.toString());
-                console.log(ticket);
-                console.log(ticket.length);
-                await mem.findOneAndUpdate({_id: message.key.toString()},  { $push: { tickets: ticket}},function(err){
-                    if(err){
-                        console.log(err);
-                    }});
             }
         },
     })

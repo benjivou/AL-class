@@ -34,6 +34,7 @@ const producer3 = kafka3.producer();
 app.post("/start/:id", async (req,res) => {
     try{
         const train = await Train.find({"_id":req.params.id, "trips._id":req.body._id});
+        const trains = await Train.find({});
         if (train === undefined){
             return res.json("The trip is not registred in the db")
         }else {
@@ -47,6 +48,7 @@ app.post("/start/:id", async (req,res) => {
                 currentStop : trip.currentStop
             };
             await pushStartTripOnKafka(data);
+            console.log(trains);
             return res.json(data)
         }
     }catch (e) {
