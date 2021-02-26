@@ -48,7 +48,14 @@ const kafka = new Kafka({
     brokers: ['kafka:9092']
 });
 
-const consumer = kafka.consumer({ groupId: 'ticketManager'});
+const { PartitionAssigners: { roundRobin } } = require('kafkajs');
+
+const consumer = kafka.consumer({
+    groupId: 'my-group',
+    partitionAssigners: [
+        roundRobin
+    ]
+});
 
 
 
