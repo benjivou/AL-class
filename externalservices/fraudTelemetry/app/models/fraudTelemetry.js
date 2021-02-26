@@ -50,4 +50,4 @@ const FraudTelemetrySchema = mongoose.Schema({
 
 });
 
-module.exports = mongoose.model('FraudTelemtry', FraudTelemetrySchema);
+module.exports = mongoose.model('Fraud', FraudTelemetrySchema);
