@@ -1,5 +1,16 @@
 # Weekly  Report
 
+## Week 8
+**Done :** 
+- Préparer la présentation 
+- Règler un problème avec Kafka : on a fait un topic par trip après les tests on a trouvé que ce n'était pas le bon choix on a donc remplacé ça par des partitions 
+- Ajouter quelques tests
+ 
+**Future tasks :** 
+- Finaliser la présentation 
+- Faire des diagrammes pour la présentation 
+- Terminer le rapport 
+
 ## Week 7
 **Done :** 
 - Intégrer Kafka dans les statistiques
