@@ -9,6 +9,16 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
+const { Kafka } = require('kafkajs');
+
+const kafka = new Kafka({
+    clientId: 'ticketCheck',
+    brokers: ['kafka:9092']
+});
+
+const producer = kafka.producer();
+
+
 /******************check whether the ticket is valid or not by its id ******************/
 app.get("/:id", async (req, res) => {
     /*Here we will add a publish into the kafka event to say that the ticket has been controlled by .. */
@@ -39,6 +49,7 @@ async function verifyTicket(ticketId, tripId, controlDate){
     console.log('INFOS', infos);
     if(infos !== undefined){
         ticket = await infos.tickets.find( element => element._id === ticketId) ;
+        await pushTicketOnKafka(tripId, ticket);
         stops= infos.trainStops ;
         let currentStop = infos.currentStop;
         let nextStop = infos.nextStop;
@@ -83,6 +94,18 @@ async function verifyTicket(ticketId, tripId, controlDate){
         return {"result": false, "type":"trip not found"}
     }
 
+}
+
+async function pushTicketOnKafka(tripId,ticket){
+    await producer.connect();
+    console.log('connected');
+    await producer.send({
+        topic: 'controlledTickets',
+        messages: [
+            {key: tripId,value:JSON.stringify( ticket)}
+        ],
+    });
+    console.log('sent');
 }
 
 

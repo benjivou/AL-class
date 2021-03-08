@@ -48,7 +48,14 @@ const kafka = new Kafka({
     brokers: ['kafka:9092']
 });
 
-const consumer = kafka.consumer({ groupId: 'ticketManager'});
+const { PartitionAssigners: { roundRobin } } = require('kafkajs');
+
+const consumer = kafka.consumer({
+    groupId: 'my-group',
+    partitionAssigners: [
+        roundRobin
+    ]
+});
 
 
 
@@ -67,6 +74,7 @@ const run = async () => {
                 found = mem.find({_id : message.key.toString() });
             }
             if( (topic==='tickets') && (found !== undefined)){
+                console.log('tickets-received');
                 let ticket = JSON.parse(message.value.toString());
                 console.log(ticket);
                 console.log(ticket.length);
@@ -82,6 +90,7 @@ const run = async () => {
                 let data = new mem(dd);
                 try{
                     const saved = await data.save();
+                    await consumer.subscribe({ topic: dd._id, fromBeginning: true });
                     console.log(saved);
                 }catch(err) {
                     console.log(err);

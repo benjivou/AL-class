@@ -11,8 +11,8 @@ const kafka = new Kafka({
 });
 
 
-
-const producer = kafka.producer();
+const { Partitioners } = require('kafkajs');
+const producer = kafka.producer({ createPartitioner: Partitioners.JavaCompatiblePartitioner });
 const consumer = kafka.consumer({ groupId: 'ticketBooking'});
 
 const run = async () => {
@@ -29,7 +29,8 @@ const run = async () => {
             }
         }
     })
-}
+};
+
 
 run().catch(console.error);
 
@@ -83,7 +84,7 @@ async function pushTicketOnKafka(tripId,ticket){
             {key: tripId,value:JSON.stringify( ticket)}
         ],
     });
-    console.log('sended');
+    console.log('sent');
 }
 
 

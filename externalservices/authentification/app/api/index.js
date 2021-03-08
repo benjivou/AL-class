@@ -11,13 +11,10 @@ app.use(bodyParser.urlencoded({
 
 app.get("/getToken/:userName/:passWord", async (req, res) => {
 
-
     try{
-
         const user =  await User.find({"users.userName" : req.params.username,"users.passWord" : req.params.password });
         await res.json({
             token :user[0]._id
-
         });
 
 

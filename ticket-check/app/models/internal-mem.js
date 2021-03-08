@@ -65,4 +65,4 @@ const TrainInternalMemSchema = mongoose.Schema({
 
 });
 
-module.exports = mongoose.model('TrainInternalDB', TrainInternalMemSchema);
+module.exports = mongoose.model('triptickets', TrainInternalMemSchema);

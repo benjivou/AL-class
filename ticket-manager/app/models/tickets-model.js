@@ -66,4 +66,4 @@ const currentTripInfos = mongoose.Schema({
 
 });
 
-module.exports = mongoose.model('TrainInternalDB', currentTripInfos);
+module.exports = mongoose.model('triptickets', currentTripInfos);

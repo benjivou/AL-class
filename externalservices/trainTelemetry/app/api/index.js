@@ -34,6 +34,7 @@ const producer3 = kafka3.producer();
 app.post("/start/:id", async (req,res) => {
     try{
         const train = await Train.find({"_id":req.params.id, "trips._id":req.body._id});
+        const trains = await Train.find({});
         if (train === undefined){
             return res.json("The trip is not registred in the db")
         }else {
@@ -47,6 +48,7 @@ app.post("/start/:id", async (req,res) => {
                 currentStop : trip.currentStop
             };
             await pushStartTripOnKafka(data);
+            console.log(trains);
             return res.json(data)
         }
     }catch (e) {
@@ -98,31 +100,6 @@ async function pushFinishedTripOnKafka(tripId){
 }
 
 
-
-
-/******************get Train current Stop by its id and tripId ******************/
-app.get("/currentStop/:trainId/:tripId", async (req, res) => {
-    try{
-        const train = await Train.findOne({ "trips._id": req.params.tripId});
-        let trip = train.trips.find(element => element._id === req.params.tripId);
-        await res.json({
-            currentStop :trip.currentStop,
-            nextStop : trip.nextStop
-        });
-    }catch(err) {
-        await res.json({message: err});
-    }
-});
-
-/******************get Train's list of stops by its id and tripId ******************/
-app.get("/stops/:trainId/:tripId", async (req, res) => {
-    try{
-        const train = await Train.findOne({ "trips._id": req.params.tripId});
-        await res.json(train.trips.find(element => element._id === req.params.tripId).stops);
-    }catch(err) {
-        await res.json({message: err});
-    }
-});
 
 /******************Post new Train infos or simply a new planned trip ******************/
 app.post("/:id",async (req,res) => {

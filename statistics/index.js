@@ -7,6 +7,14 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 require('dotenv/config');
 const Statistics = require('./app/models/statistics');
+const { Kafka } = require('kafkajs');
+
+const kafka = new Kafka({
+    clientId: 'statistics',
+    brokers: ['kafka:9092']
+});
+
+const consumer = kafka.consumer({ groupId: 'statistics'});
 
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
@@ -46,6 +54,63 @@ app.post('/',async (req,res)=>{
 
 const statsService_router = require('./app/api/index');
 app.use('/stats',statsService_router);
+
+
+const run = async () => {
+
+    await consumer.connect();
+    await consumer.subscribe({ topic: 'controlledTickets', fromBeginning: true });
+    await consumer.run({
+        eachMessage: async ({ topic, partition, message }) => {
+            let found = null ;
+            if (message.key !== undefined){
+                found = await Statistics.findOne({_id : message.key.toString() });
+            }
+            if(topic ==='controlledTickets'){
+                let ticket = JSON.parse(message.value.toString());
+                console.log(found);
+                if(found === null){
+                    console.log(found);
+                    let stats = new Statistics({
+                        _id : message.key.toString(),
+                        tickets : [ticket],
+                        frauds: []
+                    });
+                    try{
+                        let saved = await stats.save();
+                        console.log(saved);
+                    }catch (e) {
+                        console.log(e)
+                    }
+                }else {
+                    await Statistics.findOneAndUpdate({_id: message.key.toString()},  { $push: { tickets: ticket}},function(err){
+                        if(err){
+                            console.log(err);
+                        }});
+                }
+            }else  if(topic ==='declaredFrauds'){
+                let fraud = JSON.parse(message.value.toString());
+                if(found === null){
+                    let stats = new Statistics({
+                        _id : message.key.toString(),
+                        tickets : [],
+                        frauds: [fraud]
+                    });
+                    try{
+                        await stats.save();
+                    }catch (e) {
+                        console.log(e)
+                    }
+                }else {
+                    await Statistics.findOneAndUpdate({_id: message.key.toString()},  { $push: { frauds: fraud}},function(err){
+                        if(err){
+                            console.log(err);
+                        }});
+                }
+            }
+        }})};
+
+run().catch(console.error);
 
 // localhost:3009
 app.listen(3009, () => {

@@ -1,5 +1,5 @@
 {
-  "name": "statistics",
+  "name": "loadBalancer",
   "version": "1.0.0",
   "description": "\"# services\"",
   "main": "index.js",
@@ -10,19 +10,22 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.21.1",
-    "body-parser": "^1.19.0",
+    "node-cmd": "^3.0.0",
+    "request": "^2.88.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "kafkajs": "^1.15.0",
-    "mongoose": "^5.10.11",
+    "m": "^1.5.6",
+    "mongoose": "^5.10.9",
     "morgan": "^1.10.0",
-    "nodemon": "^2.0.6"
+    "nodemon": "^2.0.5",
+    "npm": "^6.14.8",
+    "test": "^0.6.0"
   },
   "devDependencies": {
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
-    "mocha": "^8.2.0"
+    "mocha": "^8.2.0",
+    "should": "^13.2.3"
   }
 }
