@@ -60,6 +60,7 @@ const run = async () => {
 
     await consumer.connect();
     await consumer.subscribe({ topic: 'controlledTickets', fromBeginning: true });
+    await consumer.subscribe({ topic: 'declaredFrauds', fromBeginning: true });
     await consumer.run({
         eachMessage: async ({ topic, partition, message }) => {
             let found = null ;
@@ -69,6 +70,7 @@ const run = async () => {
             if(topic ==='controlledTickets'){
                 let ticket = JSON.parse(message.value.toString());
                 console.log(found);
+
                 if(found === null){
                     console.log(found);
                     let stats = new Statistics({
@@ -88,6 +90,7 @@ const run = async () => {
                             console.log(err);
                         }});
                 }
+
             }else  if(topic ==='declaredFrauds'){
                 let fraud = JSON.parse(message.value.toString());
                 if(found === null){

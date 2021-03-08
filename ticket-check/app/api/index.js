@@ -49,13 +49,13 @@ async function verifyTicket(ticketId, tripId, controlDate){
     console.log('INFOS', infos);
     if(infos !== undefined){
         ticket = await infos.tickets.find( element => element._id === ticketId) ;
-        await pushTicketOnKafka(tripId, ticket);
         stops= infos.trainStops ;
         let currentStop = infos.currentStop;
         let nextStop = infos.nextStop;
         let result  = false ;
         if(ticket !== undefined)
         {
+            await pushTicketOnKafka(tripId, ticket);
             console.log("TICKET", ticket);
             if(stops.indexOf(currentStop) >= stops.indexOf(ticket.departure)){
                 if(stops.indexOf(ticket.destination) >= stops.indexOf(nextStop)){

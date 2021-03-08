@@ -93,7 +93,7 @@ app.post("/declare/fraud", async (req, res) => {
         })
         //No need to check the ticket if it has no ticketID (fraud without any tickets)
         if(req.body.ticketId != null){
-            const response = await fraudCheck(fraud)
+            const response = await fraudCheck(fraud);
             console.log('RESPONSE', response);
             //There is no fraud
             if(response.result){
@@ -103,7 +103,6 @@ app.post("/declare/fraud", async (req, res) => {
         }
         //There is effectively a fraud
         fraud.save();
-        await pushFraudOnKafka(fraud);
     }catch (e) {
         await res.json({"message": e})
     }
@@ -129,7 +128,7 @@ app.put("/pay/cash", async (req, res) => {
             return res.json("Fraud is not declared yet")
         }
         if(!fraud.paid){
-            Fraud.findByIdAndUpdate(req.body.id,{
+            await Fraud.findByIdAndUpdate(req.body.id,{
                     paid : true,
                     paymentType: "cash"
                 }, {new: true},
@@ -137,6 +136,8 @@ app.put("/pay/cash", async (req, res) => {
                     // Handle any possible database errors
                     if (err) return res.status(500).json(false);
                 });
+            let updatedFraud = await Fraud.findById( req.body.id );
+            await pushFraudOnKafka(updatedFraud);
             return await res.json(true);
         }else {return res.json("Already paid !")}
 
@@ -157,13 +158,15 @@ app.put("/pay/cb", async (req, res) => {
         let bankAuth =  await axios.post("http://paymentsystemservice:3007/bank",req.body, { headers: { Accept: "application/json" } } );
         if(!fraud.paid){
             if(bankAuth){
-                Fraud.findByIdAndUpdate(req.body.id,{
+                await Fraud.findByIdAndUpdate(req.body.id,{
                         paid : true,
                         paymentType : "cb"
                     }, {new: true},
                     (err, todo) => {
                         if (err) return res.status(500).send(err);
                     });
+                let updatedFraud = await Fraud.findById( req.body.id );
+                await pushFraudOnKafka(updatedFraud);
                 return await res.json(true);
             }
             else  return await res.json(false);
@@ -200,6 +203,9 @@ app.put("/pay/later", async (req, res) => {
                     if (err) return res.status(500).send(err);
                     return res.send(todo);
                 });
+            let updatedFraud = await Fraud.findById( req.body.id );
+            await pushFraudOnKafka(updatedFraud);
+            return await res.json(true);
         }else {return res.json("Already paid !")}
     }catch (e) {
         return res.json("Error")
@@ -213,7 +219,7 @@ async function pushFraudOnKafka(fraud){
     await producer.send({
         topic: 'declaredFrauds',
         messages: [
-            {key: 'fraud.tripId',value:JSON.stringify(fraud)}
+            {key: fraud.tripId ,value:JSON.stringify(fraud)}
         ],
     });
     console.log('sended');
