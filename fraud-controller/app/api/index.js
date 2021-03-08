@@ -78,17 +78,19 @@ app.post("/declare/fraud", async (req, res) => {
     let time = new Date();
     let a = time.getHours();
     console.log('tripId', req.body.tripId);
-    const fraud = new Fraud({
-        type : req.body.type,
-        currentStop : req.body.currentStop ,
-        controller : req.body.controller,
-        time : a,
-        amount : price1,
-        tripId : req.body.tripId,
-        ticketId : req.body.ticketId
-    });
-    console.log('FRAUD', fraud);
+    let fraud;
+
     try{
+        fraud = new Fraud({
+            type : req.body.type,
+            currentStop : req.body.currentStop ,
+            controller : req.body.controller,
+            time : a,
+            amount : price1,
+            tripId : req.body.tripId,
+            ticketId : req.body.ticketId,
+            date : req.body.date
+        })
         //No need to check the ticket if it has no ticketID (fraud without any tickets)
         if(req.body.ticketId != null){
             const response = await fraudCheck(fraud)
@@ -112,7 +114,7 @@ app.post("/declare/fraud", async (req, res) => {
 
 async function fraudCheck(fraud){
     let result = undefined;
-    await axios({method: 'post', url: 'http://ticketcheckservice:3003/ticketCheck', headers: { Accept: 'application/json' }, data: {tripId: fraud.tripId, ticketId: fraud.ticketId}})
+    await axios({method: 'post', url: 'http://ticketcheckservice:3003/ticketCheck', headers: { Accept: 'application/json' }, data: {tripId: fraud.tripId, ticketId: fraud.ticketId, date: fraud.date}})
         .then(res => {
             result = res.data;
         });

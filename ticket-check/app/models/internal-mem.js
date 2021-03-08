@@ -39,14 +39,13 @@ const TrainInternalMemSchema = mongoose.Schema({
             required : true
         },
         date : {
-            type : String,
+            type : Date,
             required : true
         },
         controller:{
             type: String,
             default : ""
         }
-
 
 
     }],

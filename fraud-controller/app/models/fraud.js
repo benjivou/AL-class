@@ -48,6 +48,10 @@ const FraudSchema = mongoose.Schema({
     ticketId : {
         type : String,
         required : true
+    },
+    date : {
+        type: Date,
+        required : true
     }
 });
 

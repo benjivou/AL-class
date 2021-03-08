@@ -54,13 +54,14 @@ const run = async () => {
                 console.log(JSON.parse(message.value.toString()));
                 //message contains the fraud to save
                 //Save fraud in DB
-                if(FraudTelemetry.findById(JSON.parse(message.value.toString())._id) === undefined){
+                /*if(FraudTelemetry.findById(JSON.parse(message.value.toString())._id) === undefined){
                     let fraudTelemtry = new FraudTelemetry({
                         _id: JSON.parse(message.value.toString()).tripId,
                         frauds : JSON.parse(message.value.toString())._id
-                    });
-                    fraudTelemtry.save();
-                }
+                    });*/
+                    //await FraudTelemetry.findOneAndUpdate({"_id": JSON.parse(message.value.toString()).tripId}, {$push: {frauds: }})
+                    //fraudTelemtry.save();
+                //}
             }
         },
     })

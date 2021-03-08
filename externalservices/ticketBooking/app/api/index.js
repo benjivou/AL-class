@@ -65,10 +65,11 @@ app.post("/",async (req,res) => {
     });
     try{
         const savedTicket = await ticket.save();
+        console.log('ticket has been saved:' + savedTicket);
         await pushTicketOnKafka(req.body.tripId,ticket);
         await res.json(savedTicket);
-        await res.json({ok : 'ok'});
     }catch(err) {
+        console.log('Error', err);
         await res.json({message: err});
     }
 });
