@@ -33,7 +33,7 @@ app.get("/:id", async (req, res) => {
 
 app.post("/", async (req, res) => {
     console.log(req.body);
-    const ticketCheck = await verifyTicket(req.body.ticketId, req.body.tripId, req.body.date);
+    const ticketCheck = await verifyTicketFraud(req.body.ticketId, req.body.tripId, req.body.date);
     return res.status(200).json(ticketCheck);
 });
 
@@ -41,8 +41,52 @@ app.post("/", async (req, res) => {
 
 
  /******************find ticket and check whether the infos in it are valid or not******************/
-async function verifyTicket(ticketId, tripId, controlDate){
-    console.log(controlDate);
+async function verifyTicket(ticketId, tripId){
+    let ticket = undefined ;
+    let stops= undefined ;
+    let infos = (await mem.find({'_id' : tripId}))[0];
+    console.log('INFOS', infos);
+    if(infos !== undefined){
+        ticket = await infos.tickets.find( element => element._id === ticketId) ;
+        stops= infos.trainStops ;
+        let currentStop = infos.currentStop;
+        let nextStop = infos.nextStop;
+        let result  = false ;
+        if(ticket !== undefined)
+        {
+            await pushTicketOnKafka(tripId, ticket);
+            console.log("TICKET", ticket);
+            if(stops.indexOf(currentStop) >= stops.indexOf(ticket.departure)){
+                if(stops.indexOf(ticket.destination) >= stops.indexOf(nextStop)){
+                    if (stops.indexOf(ticket.destination) > stops.indexOf(ticket.departure)){
+                        result = true
+                    } else {
+
+                        result = false;
+                    }
+                }else{
+                    console.log("ind False ");
+                    result = false;
+                }
+            }else {
+                console.log("ind False 2");
+                result = false;
+            }
+
+        }
+        else {
+            result = false;
+            return {"result" : result, "type":"ticket unfound"};
+        }
+        return {"result" : result, "type" : ticket.type, "ticket" : ticket };
+    } else {
+        return {"result": false, "type":"trip not found"}
+    }
+
+}
+
+
+async function verifyTicketFraud(ticketId, tripId, controlDate){
     let ticket = undefined ;
     let stops= undefined ;
     let infos = (await mem.find({'_id' : tripId}))[0];
