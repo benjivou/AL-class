@@ -1,5 +1,9 @@
 # Weekly  Report
 
+## Video
+
+Here is the link to the 3min video: https://drive.google.com/file/d/1qhSdAippekcajeylZ9w_BTwaKLUXPtX8/view
+
 ## Week 8
 **Done :** 
 - Préparer la présentation 
